@@ -18,7 +18,7 @@ dayjs.extend(relativeTime);
 const CreatePost = () => {
   const { user } = useUser();
   const ctx = api.useContext();
-  const { mutate, isPosting } = api.posts.create.useMutation({
+  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
     onSuccess: () => {
       setInput("");
       void ctx.posts.getAll.invalidate();
