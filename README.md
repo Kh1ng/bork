@@ -1,4 +1,4 @@
-https://www.bork.coltonspurgin.tech/
+https://bork.coltonspurgin.tech/
 
 Bork is social media for dog people. Just a twitter clone with more dogs entirely for learning purposes.
 
