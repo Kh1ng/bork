@@ -29,7 +29,7 @@ const CreatePost = () => {
       />
       <input
         className="grow bg-transparent outline-none"
-        placeholder="Bork here!!!"
+        placeholder="!!!bork here!!!"
       />
     </div>
   );
