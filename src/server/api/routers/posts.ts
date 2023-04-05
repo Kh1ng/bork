@@ -40,6 +40,9 @@ export const postsRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
     const posts = await ctx.prisma.post.findMany({
       take: 100,
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     const users = (
@@ -68,7 +71,7 @@ export const postsRouter = createTRPCRouter({
   create: privateProcedure
     .input(
       z.object({
-        content: z.string(),
+        content: z.string().min(1).max(280), // 280 is the max length of a tweet
       })
     )
     .mutation(async ({ ctx, input }) => {
