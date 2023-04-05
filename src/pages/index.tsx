@@ -10,6 +10,7 @@ import { api } from "~/utils/api";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { LoadingDog } from "~/components/loading";
 
 dayjs.extend(relativeTime);
 
@@ -68,7 +69,13 @@ const Home: NextPage = () => {
   const user = useUser();
   const { data, isLoading } = api.posts.getAll.useQuery();
 
-  if (isLoading) return <div> Loading... </div>;
+  if (isLoading)
+    return (
+      <div className="flex h-screen w-screen items-center justify-center align-middle">
+        {" "}
+        <LoadingDog />{" "}
+      </div>
+    );
   if (!data) return <div> Something went wrong! </div>;
 
   return (
