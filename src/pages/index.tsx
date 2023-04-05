@@ -10,7 +10,7 @@ import { api } from "~/utils/api";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { LoadingDog } from "~/components/loading";
+import { LoadingDog, LoadingPage } from "~/components/loading";
 import { useState } from "react";
 
 dayjs.extend(relativeTime);
@@ -85,7 +85,7 @@ const Feed = () => {
   if (postsLoading)
     return (
       <div className="flex grow">
-        <LoadingDog />;
+        <LoadingPage />
       </div>
     );
 
@@ -103,7 +103,12 @@ const Feed = () => {
 const Home: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
 
-  if (!userLoaded) return <LoadingDog />;
+  if (!userLoaded)
+    return (
+      <div className="flex h-screen w-screen items-center justify-center align-middle">
+        <LoadingDog />
+      </div>
+    );
 
   // Start fetching asap
   api.posts.getAll.useQuery();
