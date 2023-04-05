@@ -11,11 +11,15 @@ import { api } from "~/utils/api";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { LoadingDog } from "~/components/loading";
+import { useState } from "react";
 
 dayjs.extend(relativeTime);
 
 const CreatePost = () => {
   const { user } = useUser();
+  const { mutate } = api.posts.create.useMutation();
+  const [input, setInput] = useState("");
+
   if (!user) return null;
 
   return (
@@ -31,7 +35,10 @@ const CreatePost = () => {
       <input
         className="grow bg-transparent outline-none"
         placeholder="!!!bork here!!!"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
       />
+      <button onClick={() => mutate({ content: input })}>bork</button>
     </div>
   );
 };
@@ -68,7 +75,7 @@ const PostView = (props: PostWithUser) => {
 const Home: NextPage = () => {
   const user = useUser();
   const { data, isLoading } = api.posts.getAll.useQuery();
-
+  //need to update loading states
   if (isLoading)
     return (
       <div className="flex h-screen w-screen items-center justify-center align-middle">

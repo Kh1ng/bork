@@ -2,7 +2,11 @@ import { clerkClient } from "@clerk/nextjs/server";
 import type { User } from "@clerk/nextjs/dist/api";
 import { z } from "zod";
 
-import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
+import {
+  createTRPCRouter,
+  privateProcedure,
+  publicProcedure,
+} from "~/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 
 //filter out unneeded user info, if pfp is default the replace with random dog pic
@@ -60,4 +64,22 @@ export const postsRouter = createTRPCRouter({
       };
     });
   }),
+
+  create: privateProcedure
+    .input(
+      z.object({
+        content: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const authorID = ctx.userId;
+      const post = await ctx.prisma.post.create({
+        data: {
+          authorID: authorID,
+          content: input.content,
+        },
+      });
+
+      return post;
+    }),
 });
