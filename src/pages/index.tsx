@@ -10,8 +10,10 @@ import { api } from "~/utils/api";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { LoadingDog, LoadingPage } from "~/components/loading";
+import { LoadingDog, LoadingPage, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
+import { ZodError } from "zod";
 
 dayjs.extend(relativeTime);
 
@@ -22,6 +24,10 @@ const CreatePost = () => {
     onSuccess: () => {
       setInput("");
       void ctx.posts.getAll.invalidate();
+    },
+    onError: (e) => {
+      console.log("ZOD:", ZodError);
+      toast.error("Your posts are too long, or too fast!");
     },
   });
   const [input, setInput] = useState("");
@@ -43,9 +49,24 @@ const CreatePost = () => {
         placeholder="!!!bork here!!!"
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            if (input != "") {
+              mutate({ content: input });
+            }
+          }
+        }}
         disabled={isPosting}
       />
-      <button onClick={() => mutate({ content: input })}>bork</button>
+      {input != "" && !isPosting && (
+        <button onClick={() => mutate({ content: input })}>bork</button>
+      )}
+      {isPosting && (
+        <div className="flex items-center justify-center">
+          <LoadingSpinner />
+        </div>
+      )}
     </div>
   );
 };
@@ -84,8 +105,9 @@ const Feed = () => {
 
   if (postsLoading)
     return (
-      <div className="flex grow">
-        <LoadingPage />
+      <div className="flex h-full w-full items-center justify-center align-middle">
+        {/* Dog or spinner? */}
+        <LoadingDog />
       </div>
     );
 
