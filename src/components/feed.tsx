@@ -21,7 +21,7 @@ const Feed = () => {
 
   if (postsLoading)
     return (
-      <div className="overflow-none flex h-full w-full items-center justify-center align-middle">
+      <div className="flex h-full w-full items-center justify-center align-middle">
         {/* Dog or spinner? */}
         <LoadingDog />
       </div>
@@ -30,7 +30,7 @@ const Feed = () => {
   if (!data) return <div> Something went wrong! </div>;
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col overflow-y-scroll">
       {data.map((fullPost) => (
         <PostView {...fullPost} key={fullPost.post.id} />
       ))}
