@@ -14,6 +14,7 @@ import { LoadingDog, LoadingPage, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { ZodError } from "zod";
+import Feed from "~/components/feed";
 
 dayjs.extend(relativeTime);
 
@@ -71,57 +72,6 @@ const CreatePost = () => {
   );
 };
 
-type PostWithUser = RouterOutputs["posts"]["getAll"][number];
-const PostView = (props: PostWithUser) => {
-  const { post, author } = props;
-  return (
-    <div
-      key={post.id}
-      className="align-center flex gap-3 border-b border-slate-400 p-4"
-    >
-      <Image
-        className="h-14 w-14 rounded-full"
-        src={author.profileImageUrl}
-        alt="profile image"
-        width={56}
-        height={56}
-        // placeholder="blur"
-      />
-      <div className="flex flex-col">
-        <div className="flex gap-1 font-bold text-cyan-100">
-          <span>{`@${author.username}`}</span>
-          <span className="font-thin">{`\t · ${dayjs(
-            post.createdAt
-          ).fromNow()}`}</span>
-        </div>
-        <span>{post.content}</span>
-      </div>
-    </div>
-  );
-};
-
-const Feed = () => {
-  const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
-
-  if (postsLoading)
-    return (
-      <div className="flex h-full w-full items-center justify-center align-middle">
-        {/* Dog or spinner? */}
-        <LoadingDog />
-      </div>
-    );
-
-  if (!data) return <div> Something went wrong! </div>;
-
-  return (
-    <div className="flex flex-col">
-      {data.map((fullPost) => (
-        <PostView {...fullPost} key={fullPost.post.id} />
-      ))}
-    </div>
-  );
-};
-
 const Home: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
 
@@ -140,11 +90,6 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Bork</title>
-        <meta name="description" content="Social media for dog people" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <main className="flex justify-center">
         <div className="h-screen w-full border-x border-slate-400 md:max-w-2xl">
           <div className="flex border-b border-slate-400 p-4">
