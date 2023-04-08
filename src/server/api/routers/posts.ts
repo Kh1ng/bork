@@ -9,30 +9,44 @@ import {
 } from "~/server/api/trpc";
 import { TRPCError } from "@trpc/server";
 
-//filter out unneeded user info, if pfp is default the replace with random dog pic
-const filterUserInfo = (user: User) => {
+/**
+ *  Upstash ratelimiter
+ *
+ */
+
+import { Ratelimit } from "@upstash/ratelimit"; // for deno: see above
+import { Redis } from "@upstash/redis";
+
+// Create a new ratelimiter, that allows 3 requests per min
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(3, "1 m"),
+  analytics: true,
+});
+
+const assignPic = async (user: User) => {
   interface dogApiResponse {
     message: string;
+    status: string;
   }
+  if (user.profileImageUrl === "https://www.gravatar.com/avatar?d=mp") {
+    const randomDog = await fetch("https://dog.ceo/api/breeds/image/random");
+    console.log(randomDog);
+    // let data: dogApiResponse;
+    // if (randomDog && data.status === "success") {
+    //   data = randomDog.json();
+    //   return data.message;
+    // }
+  }
+};
 
+//filter out unneeded user info, if pfp is default the replace with random dog pic
+const filterUserInfo = (user: User) => {
+  // void assignPic(user);
   return {
     id: user.id,
     username: user.username,
     profileImageUrl: user.profileImageUrl,
-    //   user.profileImageUrl === "https://www.gravatar.com/avatar?d=mp"         I would like this to get a random dog pic from the dog.ceo api
-    //     ? async () => {
-    //         const randomDog = await fetch(
-    //           "https://dog.ceo/api/breeds/image/random"
-    //         );
-    //         const data: dogApiResponse =
-    //           (await randomDog.json()) as dogApiResponse;
-    //         if (!data) {
-    //           return "https://www.gravatar.com/avatar?d=mp";
-    //         } else {
-    //           return data?.message;
-    //         }
-    //       }
-    //     : user.profileImageUrl,
   };
 };
 
@@ -76,6 +90,10 @@ export const postsRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const authorID = ctx.userId;
+
+      const { success } = await ratelimit.limit(authorID);
+      if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
+
       const post = await ctx.prisma.post.create({
         data: {
           authorID: authorID,
