@@ -35,3 +35,5 @@ export const PostView = (props: PostWithUser) => {
     </div>
   );
 };
+
+export default PostView;
