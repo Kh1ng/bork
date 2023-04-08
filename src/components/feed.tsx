@@ -14,7 +14,7 @@ import { LoadingDog, LoadingPage, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { ZodError } from "zod";
-import PostView from "./postView";
+import { PostView } from "./postview";
 
 const Feed = () => {
   const { data, isLoading: postsLoading } = api.posts.getAll.useQuery();
