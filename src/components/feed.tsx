@@ -21,7 +21,7 @@ const Feed = () => {
 
   if (postsLoading)
     return (
-      <div className="flex h-full w-full items-center justify-center align-middle">
+      <div className="overflow-none flex h-full w-full items-center justify-center align-middle">
         {/* Dog or spinner? */}
         <LoadingDog />
       </div>
