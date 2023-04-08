@@ -15,6 +15,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { ZodError } from "zod";
 import Feed from "~/components/feed";
+import { PageLayout } from "~/components/layout";
 
 dayjs.extend(relativeTime);
 
@@ -89,17 +90,13 @@ const Home: NextPage = () => {
   if (!userLoaded) return <div />;
 
   return (
-    <>
-      <main className="flex justify-center">
-        <div className="h-screen w-full border-x border-slate-400 md:max-w-2xl">
-          <div className="flex border-b border-slate-400 p-4">
-            {!isSignedIn && <SignInButton />}
-            {isSignedIn && <CreatePost />}
-          </div>
-          <Feed />
-        </div>
-      </main>
-    </>
+    <PageLayout>
+      <div className="flex border-b border-slate-400 p-4">
+        {!isSignedIn && <SignInButton />}
+        {isSignedIn && <CreatePost />}
+      </div>
+      <Feed />
+    </PageLayout>
   );
 };
 
