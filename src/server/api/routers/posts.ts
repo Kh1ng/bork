@@ -1,4 +1,5 @@
 import { clerkClient } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/app-beta";
 import type { User } from "@clerk/nextjs/dist/api";
 import { z } from "zod";
 import type { Post } from "@prisma/client";
@@ -8,9 +9,6 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 import { TRPCError } from "@trpc/server";
-
-import { Ratelimit } from "@upstash/ratelimit"; // for deno: see above
-import { Redis } from "@upstash/redis";
 
 import filterUserInfo from "~/server/helpers/filterUserInfo";
 
@@ -50,29 +48,6 @@ const addUserDataToPosts = async (posts: Post[]) => {
       },
     };
   });
-};
-
-// Create a new ratelimiter, that allows 3 requests per min
-const ratelimit = new Ratelimit({
-  redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(3, "1 m"),
-  analytics: true,
-});
-
-const assignPic = async (user: User) => {
-  interface dogApiResponse {
-    message: string;
-    status: string;
-  }
-  if (user.profileImageUrl === "https://www.gravatar.com/avatar?d=mp") {
-    const randomDog = await fetch("https://dog.ceo/api/breeds/image/random");
-    console.log(randomDog);
-    // let data: dogApiResponse;
-    // if (randomDog && data.status === "success") {
-    //   data = randomDog.json();
-    //   return data.message;
-    // }
-  }
 };
 
 export const postsRouter = createTRPCRouter({
@@ -145,10 +120,7 @@ export const postsRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const authorID = ctx.userId;
-
-      const { success } = await ratelimit.limit(authorID);
-      if (!success) throw new TRPCError({ code: "TOO_MANY_REQUESTS" });
-
+      //rate limit again?
       const post = await ctx.prisma.post.create({
         data: {
           authorID: authorID,

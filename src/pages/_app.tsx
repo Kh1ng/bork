@@ -1,4 +1,4 @@
-import { type AppType } from "next/app";
+import { type AppType, AppProps } from "next/app";
 import { api } from "~/utils/api";
 import { ClerkProvider } from "@clerk/nextjs";
 import "~/styles/globals.css";
@@ -11,9 +11,13 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       <Head>
         <title>Bork</title>
         <meta name="description" content="Social media for dog people" />
+        <meta
+          name="format-detection"
+          content="telephone=no, date=no, email=no, address=no"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Toaster />
+      {/* <Toaster /> */}
       <Component {...pageProps} />
     </ClerkProvider>
   );

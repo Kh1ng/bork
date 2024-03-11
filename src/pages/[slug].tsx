@@ -5,7 +5,6 @@ import { PageLayout } from "~/components/layout";
 import Image from "next/image";
 import { LoadingPage } from "~/components/loading";
 import { PostView } from "../components/postview";
-// import { generateSSGHelper } from "~/server/helpers/ssgHelper";
 
 const ProfileFeed = (props: { userID: string }) => {
   const { data, isLoading } = api.posts.getPostsByUserId.useQuery({
@@ -56,13 +55,13 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   );
 };
 
-import { createProxySSGHelpers } from "@trpc/react-query/ssg";
 import { appRouter } from "~/server/api/root";
 import { prisma } from "~/server/db";
 import SuperJSON from "superjson";
+import { createServerSideHelpers } from "@trpc/react-query/server";
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const ssg = createProxySSGHelpers({
+  const helper = createServerSideHelpers({
     router: appRouter,
     ctx: { prisma, userId: null },
     transformer: SuperJSON,
@@ -75,11 +74,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
   //to match usernames[], remove @
   const username = slug.replace("@", "");
 
-  await ssg.profile.getUserByUsername.prefetch({ username });
+  await helper.profile.getUserByUsername.prefetch({ username });
 
   return {
     props: {
-      trpcState: ssg.dehydrate(),
+      trpcState: helper.dehydrate(),
       username,
     },
   };
