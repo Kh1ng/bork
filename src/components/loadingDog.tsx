@@ -1,6 +1,4 @@
 import Image from "next/image";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import loading from "public/480.gif";
 
 export const LoadingDog = () => {
