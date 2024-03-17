@@ -1,6 +1,7 @@
 import { clerkClient } from "@clerk/nextjs/server";
-import { currentUser } from "@clerk/nextjs/app-beta";
-import type { User } from "@clerk/nextjs/dist/api";
+import { ClerkProvider } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/";
+import type { User } from "@clerk/nextjs/dist/types";
 import { z } from "zod";
 import type { Post } from "@prisma/client";
 import {
