@@ -1,5 +1,5 @@
 import Image from "next/image";
-import loading from "/Users/coltonspurgin/Developer/bork/public/480.gif";
+import loading from "public/480.gif";
 
 export const LoadingDog = () => {
   return (
