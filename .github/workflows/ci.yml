@@ -16,11 +16,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # - name: Typecheck
-      #   run: npm run typecheck
+      - name: Typecheck
+        run: npm run typecheck
 
-      # - name: Lint
-      #   run: npm run lint
+      - name: Lint
+        run: npm run lint
 
       - name: Print Environment Variable
         run: echo $MY_ENV_VAR

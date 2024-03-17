@@ -1,5 +1,5 @@
 import { currentUser } from "@clerk/nextjs/";
-import type { User } from "@clerk/nextjs/dist/api";
+import { User } from "@clerk/nextjs/dist/types/server";
 
 const filterUserInfo = (user: User) => {
   return {
