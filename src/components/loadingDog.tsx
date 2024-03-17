@@ -1,4 +1,5 @@
 import Image from "next/image";
+// @ts-ignore
 import loading from "../../../public/480.gif";
 
 export const LoadingDog = () => {
