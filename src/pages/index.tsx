@@ -39,7 +39,7 @@ const CreatePost = () => {
   return (
     <div className="flex w-full gap-4">
       <Image
-        src={user.profileImageUrl}
+        src={user.imageUrl.toString()}
         alt="profile image"
         className="h-16 w-16 rounded-full"
         width={56}
