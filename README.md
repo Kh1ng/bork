@@ -2,20 +2,21 @@
 
 Bork is a social media app for dog people. Just a Twitter clone with more dogs, entirely for learning purposes.
 
-## Stuff I used
+## Tech I used
 - Typescript
 - SQL
 - tRPC
 - Vercel
 - Clerk
+- GitHub Actions
+- Jest
 
-## Stuff I did
-Made the app and about a year later planet-scale decided to shut down their free tier. I ended up migrating to Railway and learning a lot about databases.
+## What I've Learned
+Besides the normal minor refactors and updates, a big hurdle was that Planet-scale decided to shut down its free tier. I ended up migrating to Railway and learning a lot about databases. I also am feeling really good about CI & CD through GitHub actions.
 
-## Stuff I plan to do
-- Clerk has changed how the user objects work, I need to update profile images and I'd like to add a user settings interface for a user to access their settings.
-- I'd like to get random pictures of dogs from a free api and assign them to new users.
-- Testing, I'm not sure if I'm way out in left field or what but it is kind of ridiculous to mock components in this stack. I would still like to add some testing in CI/CD.
+## The To-Do List
+- I'd like to get random pictures of dogs from a free API and assign them to new users.
+- More testing in-depth testing, 100% coverage.
 
 
 
