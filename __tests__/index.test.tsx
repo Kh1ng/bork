@@ -2,8 +2,16 @@ import { render } from "@testing-library/react";
 import { ClerkProvider } from "@clerk/nextjs";
 import Home from "../src/pages/index";
 import "@testing-library/jest-dom";
+import user from "@testing-library/user-event";
 
 jest.mock("@clerk/nextjs");
+
+const pageProps = {};
+const wrapper = render(
+  <ClerkProvider {...pageProps}>
+    <Home {...pageProps} />
+  </ClerkProvider>
+);
 
 describe("Home", () => {
   test("renders loading dog while loading", () => {
@@ -13,12 +21,6 @@ describe("Home", () => {
       isLoaded: false,
     });
 
-    const pageProps = {};
-    const wrapper = render(
-      <ClerkProvider {...pageProps}>
-        <Home {...pageProps} />
-      </ClerkProvider>
-    );
     const loadingDog = wrapper.findAllByTitle("LoadingDog");
     expect(loadingDog).toBeDefined();
   });
@@ -29,13 +31,6 @@ describe("Home", () => {
       isSignedIn: false,
       isLoaded: true,
     });
-    const pageProps = {};
-    const wrapper = render(
-      <ClerkProvider {...pageProps}>
-        <Home {...pageProps} />
-      </ClerkProvider>
-    );
-
     const signIn = wrapper.findAllByTitle("SignInButton");
     expect(signIn).toBeDefined();
   });
@@ -46,14 +41,19 @@ describe("Home", () => {
       isSignedIn: true,
       isLoaded: true,
     });
-    const pageProps = {};
-    const wrapper = render(
-      <ClerkProvider {...pageProps}>
-        <Home {...pageProps} />
-      </ClerkProvider>
-    );
 
     const createPost = wrapper.findAllByTitle("CreatePost");
     expect(createPost).toBeDefined();
+  });
+
+  test("renders the Feed component", () => {
+    const useUser = jest.fn();
+    useUser.mockReturnValue({
+      isSignedIn: true,
+      isLoaded: true,
+    });
+
+    const feed = wrapper.findAllByTitle("Feed");
+    expect(feed).toBeDefined();
   });
 });
