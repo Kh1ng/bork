@@ -9,7 +9,7 @@
     "lint": "next lint",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test": "jest --watch",
+    "test": "jest",
     "coverage": "jest --coverage"
   },
   "dependencies": {
