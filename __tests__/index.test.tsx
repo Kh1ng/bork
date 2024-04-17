@@ -6,7 +6,7 @@ import "@testing-library/jest-dom";
 jest.mock("@clerk/nextjs");
 
 describe("Home", () => {
-  test("renders loading dog", () => {
+  test("renders loading dog while loading", () => {
     const useUser = jest.fn();
     useUser.mockReturnValue({
       isSignedIn: false,
@@ -38,5 +38,22 @@ describe("Home", () => {
 
     const signIn = wrapper.findAllByTitle("SignInButton");
     expect(signIn).toBeDefined();
+  });
+
+  test("renders the CreatePost component if the user is signed in", () => {
+    const useUser = jest.fn();
+    useUser.mockReturnValue({
+      isSignedIn: true,
+      isLoaded: true,
+    });
+    const pageProps = {};
+    const wrapper = render(
+      <ClerkProvider {...pageProps}>
+        <Home {...pageProps} />
+      </ClerkProvider>
+    );
+
+    const createPost = wrapper.findAllByTitle("CreatePost");
+    expect(createPost).toBeDefined();
   });
 });
