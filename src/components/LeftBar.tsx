@@ -39,7 +39,7 @@ const LeftBar = () => {
                   height={56}
                 />
 
-                <Link className="" href={`/@${user.username}`}>
+                <Link className="" href={`/${user.username}`}>
                   {`@${user.username} `}
                 </Link>
               </div>
