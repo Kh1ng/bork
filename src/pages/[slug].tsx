@@ -16,7 +16,7 @@ const ProfileFeed = (props: { userID: string }) => {
   if (!data || data.length === 0) return <div>User has not posted</div>;
 
   return (
-    <div className="flex flex-col overflow-y-scroll">
+    <div className="flex flex-col overflow-y-scroll bg-slate-800">
       {data.map((fullPost) => (
         <PostView {...fullPost} key={fullPost.post.id} />
       ))}
@@ -30,7 +30,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   });
   if (!data) return <div>Something is borked, page not found.</div>;
   return (
-    <>
+    <div className="bg-black">
       <Head>
         <title>{data.username ?? ""}</title>
       </Head>
@@ -41,6 +41,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
             alt={`${data.username ?? ""}'s profile pic`}
             width={128}
             height={128}
+            sizes="(max-height: 128px) 128px, 64px"
             className="absolute bottom-0 left-0 -mb-[64px] ml-4 rounded-full border-4 border-black bg-black"
           />
         </div>
@@ -51,7 +52,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
         <div className="w-full border-b border-slate-400" />
         <ProfileFeed userID={data.id} />
       </PageLayout>
-    </>
+    </div>
   );
 };
 

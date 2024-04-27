@@ -12,6 +12,7 @@ import { toast } from "react-hot-toast";
 import { ZodError } from "zod";
 import Feed from "~/components/feed";
 import { PageLayout } from "~/components/layout";
+import LeftBar from "~/components/LeftBar";
 
 dayjs.extend(relativeTime);
 
@@ -33,7 +34,7 @@ const CreatePost = () => {
   if (!user) return null;
 
   return (
-    <div className="flex w-full gap-4">
+    <div className="flex w-full gap-2">
       <Image
         src={user?.imageUrl.toString()}
         alt="profile image"
@@ -87,7 +88,7 @@ const Home: NextPage = () => {
 
   return (
     <PageLayout>
-      <div className="flex border-b border-slate-400 p-4">
+      <div className="flex border-b border-slate-400 bg-black p-4">
         {!isSignedIn && <SignInButton />}
         {isSignedIn && <CreatePost />}
       </div>
