@@ -43,11 +43,13 @@ const LeftBar = () => {
                   {`@${user.username} `}
                 </Link>
               </div>
-              <div className="self-end">
-                <Link className="" href="UserSettingsPage">
+              <div className="flex flex-col justify-items-end self-end align-bottom">
+                <Link className="flex p-1" href="UserSettingsPage">
                   Account
                 </Link>
-                <SignOutButton />
+                <div className="flex p-1">
+                  <SignOutButton />
+                </div>
               </div>
             </div>
           </div>
