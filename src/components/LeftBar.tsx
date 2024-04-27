@@ -11,11 +11,8 @@ const LeftBar = () => {
       <div className="flex h-full w-full flex-col pr-4 pt-4">
         <nav className="m-auto gap-2">
           <Link href="/">Home</Link>
-          <Link className="flex" href="/about">
+          <Link className="flex" href="https://github.com/kh1ng/bork">
             About
-          </Link>
-          <Link className="flex" href="/users">
-            Users
           </Link>
         </nav>
         <div className="flex h-full w-full flex-col justify-end gap-2 pb-4 pl-2 align-text-bottom"></div>
@@ -26,11 +23,8 @@ const LeftBar = () => {
       <div className="flex h-full w-full flex-col pt-4">
         <nav className="m-auto gap-2">
           <Link href="/">Home</Link>
-          <Link className="flex" href="/about">
+          <Link className="flex" href="https://github.com/kh1ng/bork">
             About
-          </Link>
-          <Link className="flex" href="/users">
-            Users
           </Link>
         </nav>
         <div className="flex h-full w-full flex-col justify-end gap-2 pb-4 pl-2 align-text-bottom">
