@@ -1,16 +1,12 @@
-import { SignIn, SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
-import Head from "next/head";
-import Link from "next/link";
 
 import Image from "next/image";
-
-import type { RouterOutputs } from "~/utils/api";
 import { api } from "~/utils/api";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { LoadingDog, LoadingPage, LoadingSpinner } from "~/components/loading";
+import { LoadingDog, LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { ZodError } from "zod";
@@ -39,7 +35,7 @@ const CreatePost = () => {
   return (
     <div className="flex w-full gap-4">
       <Image
-        src={user.imageUrl.toString()}
+        src={user?.imageUrl.toString()}
         alt="profile image"
         className="h-16 w-16 rounded-full"
         width={56}

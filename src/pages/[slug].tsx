@@ -28,7 +28,7 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   const { data } = api.profile.getUserByUsername.useQuery({
     username,
   });
-  if (!data) return <div>404</div>;
+  if (!data) return <div>Something is borked, page not found.</div>;
   return (
     <>
       <Head>
@@ -59,6 +59,8 @@ import { appRouter } from "~/server/api/root";
 import { prisma } from "~/server/db";
 import SuperJSON from "superjson";
 import { createServerSideHelpers } from "@trpc/react-query/server";
+import { useUser } from "@clerk/nextjs";
+import UserSettingsPage from "./UserSettingsPage";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const helper = createServerSideHelpers({
