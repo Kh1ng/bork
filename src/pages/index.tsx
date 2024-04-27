@@ -12,7 +12,7 @@ import { toast } from "react-hot-toast";
 import { ZodError } from "zod";
 import Feed from "~/components/feed";
 import { PageLayout } from "~/components/layout";
-import LeftBar from "~/components/LeftBar";
+import { dark } from "@clerk/themes";
 
 dayjs.extend(relativeTime);
 

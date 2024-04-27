@@ -5,6 +5,7 @@ import "~/styles/globals.css";
 import { Toaster } from "react-hot-toast";
 import Head from "next/head";
 import { dark } from "@clerk/themes";
+import { Analytics } from "@vercel/analytics/react";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
@@ -22,6 +23,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           content="telephone=no, date=no, email=no, address=no"
         />
         <link rel="icon" href="/favicon.ico" />
+        <Analytics />
       </Head>
       {/* <Toaster /> */}
       <Component {...pageProps} />
