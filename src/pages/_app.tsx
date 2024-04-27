@@ -4,10 +4,16 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "~/styles/globals.css";
 import { Toaster } from "react-hot-toast";
 import Head from "next/head";
+import { dark } from "@clerk/themes";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <ClerkProvider {...pageProps}>
+    <ClerkProvider
+      appearance={{
+        baseTheme: dark,
+      }}
+      {...pageProps}
+    >
       <Head>
         <title>Bork</title>
         <meta name="description" content="Social media for dog people" />
