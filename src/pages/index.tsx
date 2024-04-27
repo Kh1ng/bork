@@ -12,7 +12,6 @@ import { toast } from "react-hot-toast";
 import { ZodError } from "zod";
 import Feed from "~/components/feed";
 import { PageLayout } from "~/components/layout";
-import { dark } from "@clerk/themes";
 
 dayjs.extend(relativeTime);
 
@@ -23,6 +22,7 @@ const CreatePost = () => {
     onSuccess: () => {
       setInput("");
       void ctx.posts.getAll.invalidate();
+      toast.success("Borked!");
     },
     onError: (e) => {
       console.log("ZOD:", ZodError);

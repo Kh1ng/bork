@@ -29,11 +29,11 @@ const LeftBar = () => {
         </nav>
         <div className="flex h-full min-w-24 flex-col justify-end gap-2 p-4 align-text-bottom">
           <div className="flex flex-row ">
-            <div className="grid grid-cols-2 grid-rows-1 gap-1">
+            <div className="grid grid-rows-1 gap-1 md:grid-cols-2 ">
               <div>
                 <Image
                   src={user?.imageUrl.toString()}
-                  className="flex h-14 w-14 place-self-center self-center rounded-full"
+                  className="h-14 w-14 rounded-full"
                   alt={`@${user?.username.toString()}'s profile picture`}
                   width={56}
                   height={56}

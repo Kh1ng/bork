@@ -1,6 +1,4 @@
 import { clerkClient } from "@clerk/nextjs/server";
-import { ClerkProvider } from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs/";
 import { z } from "zod";
 import type { Post } from "@prisma/client";
 import {
@@ -120,7 +118,7 @@ export const postsRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const authorID = ctx.userId;
-      //rate limit again?
+
       const post = await ctx.prisma.post.create({
         data: {
           authorID: authorID,
