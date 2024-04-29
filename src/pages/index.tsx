@@ -17,7 +17,7 @@ dayjs.extend(relativeTime);
 
 const CreatePost = () => {
   const { user } = useUser();
-  const ctx = api.useContext();
+  const ctx = api.useUtils();
   const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
     onSuccess: () => {
       setInput("");
@@ -26,7 +26,7 @@ const CreatePost = () => {
     },
     onError: (e) => {
       console.log("ZOD:", ZodError);
-      toast.error("Your posts are too long, or too fast!");
+      toast.error("Your posts is too long!");
     },
   });
   const [input, setInput] = useState("");

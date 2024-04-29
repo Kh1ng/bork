@@ -1,7 +1,5 @@
 import { api } from "~/utils/api";
 import { LoadingDog } from "~/components/loading";
-import { toast } from "react-hot-toast";
-import { ZodError } from "zod";
 import { PostView } from "./postview";
 
 const Feed = () => {

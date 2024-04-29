@@ -23,8 +23,8 @@ const MyApp: AppType = ({ Component, pageProps }) => {
           content="telephone=no, date=no, email=no, address=no"
         />
         <link rel="icon" href="/favicon.ico" />
-        <Analytics />
       </Head>
+      <Analytics />
       <Toaster />
       <Component {...pageProps} />
     </ClerkProvider>
