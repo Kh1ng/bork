@@ -1,14 +1,13 @@
 import { clerkClient } from "@clerk/nextjs/server";
 import { z } from "zod";
 import type { Post } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
+import filterUserInfo from "~/server/helpers/filterUserInfo";
 import {
   createTRPCRouter,
   privateProcedure,
   publicProcedure,
 } from "~/server/api/trpc";
-import { TRPCError } from "@trpc/server";
-
-import filterUserInfo from "~/server/helpers/filterUserInfo";
 
 const addUserDataToPosts = async (posts: Post[]) => {
   const userId = posts.map((post) => post.authorID);
