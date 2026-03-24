@@ -1,10 +1,13 @@
 import React from "react";
 import { LoadingPage } from "../../src/components/loading";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
 describe("Loading Component", () => {
-  it("renders without crashing", () => {
+  it("renders spinner status and accessible loading text", () => {
     render(<LoadingPage />);
-    expect;
+
+    expect(screen.getByRole("status")).toBeInTheDocument();
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 });

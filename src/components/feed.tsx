@@ -15,7 +15,7 @@ const Feed = () => {
   if (!data) return <div> Something went wrong! </div>;
 
   return (
-    <div className="flex flex-col overflow-y-scroll bg-black">
+    <div className="tw-feed-scroller flex max-h-[calc(100vh-140px)] flex-col overflow-y-auto bg-[#f7fbfe]">
       {data.map((fullPost) => (
         <PostView {...fullPost} key={fullPost.post.id} />
       ))}

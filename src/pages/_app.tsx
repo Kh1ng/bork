@@ -1,19 +1,24 @@
 import { type AppType } from "next/app";
 import { api } from "~/utils/api";
-import { ClerkProvider } from "@clerk/nextjs";
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs'
+import { SessionContextProvider, type Session } from '@supabase/auth-helpers-react'
+import { useState } from 'react'
 import "~/styles/globals.css";
 import { Toaster } from "react-hot-toast";
 import Head from "next/head";
-import { dark } from "@clerk/themes";
 import { Analytics } from "@vercel/analytics/react";
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+interface AppProps {
+  initialSession?: Session | null;
+}
+
+const MyApp: AppType<AppProps> = ({ Component, pageProps }) => {
+  const [supabaseClient] = useState(() => createPagesBrowserClient())
+
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: dark,
-      }}
-      {...pageProps}
+    <SessionContextProvider
+      supabaseClient={supabaseClient}
+      initialSession={pageProps.initialSession}
     >
       <Head>
         <title>Bork</title>
@@ -27,7 +32,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       <Analytics />
       <Toaster />
       <Component {...pageProps} />
-    </ClerkProvider>
+    </SessionContextProvider>
   );
 };
 

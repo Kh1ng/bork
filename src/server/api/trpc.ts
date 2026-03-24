@@ -15,27 +15,9 @@
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
-
-import { prisma } from "~/server/db";
-import { getAuth } from "@clerk/nextjs/server";
-
-// type CreateContextOptions = Record<string, never>;
-
-/**
- * This helper generates the "internals" for a tRPC context. If you need to use it, you can export
- * it from here.
- *
- * Examples of things you may need it for:
- * - testing, so we don't have to mock Next.js' req/res
- * - tRPC's `createSSGHelpers`, where we don't have req/res
- *
- * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
- */
-// const createInnerTRPCContext = (_opts: CreateContextOptions) => {
-//   return {
-//     prisma,
-//   };
-// };
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
+import { createClient } from "@supabase/supabase-js";
+import { env } from "~/env.mjs";
 
 /**
  * This is the actual context you will use in your router. It will be used to process every request
@@ -43,15 +25,61 @@ import { getAuth } from "@clerk/nextjs/server";
  *
  * @see https://trpc.io/docs/context
  */
-export const createTRPCContext = (opts: CreateNextContextOptions) => {
-  const { req } = opts;
-  const sesh = getAuth(req);
+export const createTRPCContext = async (opts: CreateNextContextOptions) => {
+  const { req, res } = opts;
+  
+  // Create authenticated Supabase Client for user sessions
+  const supabase = createPagesServerClient({ req, res })
 
-  const userId = sesh.userId;
+  // Public client without cookie/session token attachment.
+  // Use this for public read queries to avoid stale/invalid JWT cookie issues.
+  const supabasePublic = createClient(
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    },
+  );
+  
+  // Create admin client for server-side operations
+  const supabaseAdmin = env.SUPABASE_SERVICE_ROLE_KEY
+    ? createClient(
+        env.NEXT_PUBLIC_SUPABASE_URL,
+        env.SUPABASE_SERVICE_ROLE_KEY,
+        {
+          auth: {
+            autoRefreshToken: false,
+            persistSession: false,
+          },
+        },
+      )
+    : supabase;
+  
+  let session: Awaited<ReturnType<typeof supabase.auth.getSession>>["data"]["session"] = null;
+
+  try {
+    const {
+      data: { session: currentSession },
+    } = await supabase.auth.getSession();
+
+    session = currentSession;
+  } catch (error) {
+    // Public procedures should still work even if the browser holds stale/invalid auth cookies.
+    console.warn("Supabase session parse failed in tRPC context", error);
+    session = null;
+  }
+
+  const userId = session?.user?.id ?? null;
 
   return {
-    prisma,
     userId,
+    supabase,
+    supabasePublic,
+    supabaseAdmin,
+    session,
   };
 };
 
@@ -114,6 +142,10 @@ const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
   return next({
     ctx: {
       userId: ctx.userId,
+      supabase: ctx.supabase,
+      supabasePublic: ctx.supabasePublic,
+      supabaseAdmin: ctx.supabaseAdmin,
+      session: ctx.session,
     },
   });
 });
