@@ -1,10 +1,16 @@
-import { withClerkMiddleware } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
-export default withClerkMiddleware((req: NextRequest) => {
-  return NextResponse.next();
-});
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next()
+  const supabase = createMiddlewareClient({ req, res })
+
+  // Refresh session if expired - required for Server Components
+  await supabase.auth.getSession()
+
+  return res
+}
 
 // Stop Middleware running on static files
 export const config = {

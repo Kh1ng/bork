@@ -1,59 +1,65 @@
-import { render } from "@testing-library/react";
-import { ClerkProvider } from "@clerk/nextjs";
+import { render, screen } from "@testing-library/react";
 import Home from "../../src/pages/index";
 import "@testing-library/jest-dom";
-import user from "@testing-library/user-event";
+import { useUser } from "@supabase/auth-helpers-react";
 
-jest.mock("@clerk/nextjs");
+jest.mock("@supabase/auth-helpers-react", () => ({
+  useUser: jest.fn(),
+}));
 
-const pageProps = {};
-const wrapper = render(
-  <ClerkProvider {...pageProps}>
-    <Home {...pageProps} />
-  </ClerkProvider>
-);
+jest.mock("~/utils/api", () => ({
+  api: {
+    profile: {
+      getCurrentProfile: {
+        useQuery: jest.fn(() => ({ data: null })),
+      },
+    },
+    posts: {
+      getAll: {
+        useQuery: jest.fn(),
+      },
+      create: {
+        useMutation: jest.fn(() => ({ mutate: jest.fn(), isLoading: false })),
+      },
+    },
+    useUtils: jest.fn(() => ({
+      posts: {
+        getAll: { invalidate: jest.fn() },
+      },
+    })),
+  },
+}));
 
+jest.mock("~/components/feed", () => () => <div data-testid="feed">feed</div>);
+jest.mock("~/components/layout", () => ({
+  PageLayout: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+jest.mock("~/components/loading", () => ({
+  LoadingSpinner: () => <div data-testid="loading-spinner">loading</div>,
+}));
+
+const mockUseUser = useUser as jest.Mock;
 describe("Home", () => {
-  test("renders loading dog while loading", () => {
-    const useUser = jest.fn();
-    useUser.mockReturnValue({
-      isSignedIn: false,
-      isLoaded: false,
-    });
+  test("renders sign in link and feed when user is signed out", () => {
+    mockUseUser.mockReturnValue(null);
 
-    const loadingDog = wrapper.findAllByTitle("LoadingDog");
-    expect(loadingDog).toBeDefined();
+    render(<Home />);
+
+    expect(screen.getByRole("link", { name: "Sign in" })).toBeInTheDocument();
+    expect(screen.getByTestId("feed")).toBeInTheDocument();
   });
 
-  test("renders the SignInButton component if the user is not signed in", () => {
-    const useUser = jest.fn();
-    useUser.mockReturnValue({
-      isSignedIn: false,
-      isLoaded: true,
-    });
-    const signIn = wrapper.findAllByTitle("SignInButton");
-    expect(signIn).toBeDefined();
-  });
-
-  test("renders the CreatePost component if the user is signed in", () => {
-    const useUser = jest.fn();
-    useUser.mockReturnValue({
-      isSignedIn: true,
-      isLoaded: true,
+  test("renders create post and feed when user is signed in", () => {
+    mockUseUser.mockReturnValue({
+      email: "test@example.com",
+      user_metadata: {
+        avatar_url: "https://api.dicebear.com/7.x/lorelei/svg?seed=test",
+      },
     });
 
-    const createPost = wrapper.findAllByTitle("CreatePost");
-    expect(createPost).toBeDefined();
-  });
+    render(<Home />);
 
-  test("renders the Feed component", () => {
-    const useUser = jest.fn();
-    useUser.mockReturnValue({
-      isSignedIn: true,
-      isLoaded: true,
-    });
-
-    const feed = wrapper.findAllByTitle("Feed");
-    expect(feed).toBeDefined();
+    expect(screen.getByPlaceholderText("What's happening, pup?")).toBeInTheDocument();
+    expect(screen.getByTestId("feed")).toBeInTheDocument();
   });
 });

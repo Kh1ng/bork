@@ -1,12 +1,13 @@
-import { SignInButton, useUser } from "@clerk/nextjs";
+import { useUser } from '@supabase/auth-helpers-react'
 import { type NextPage } from "next";
+import Link from "next/link";
 
 import Image from "next/image";
 import { api } from "~/utils/api";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { LoadingDog, LoadingSpinner } from "~/components/loading";
+import { LoadingSpinner } from "~/components/loading";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { ZodError } from "zod";
@@ -16,15 +17,18 @@ import { PageLayout } from "~/components/layout";
 dayjs.extend(relativeTime);
 
 const CreatePost = () => {
-  const { user } = useUser();
+  const user = useUser();
   const ctx = api.useUtils();
+  const { data: currentProfile } = api.profile.getCurrentProfile.useQuery(undefined, {
+    enabled: !!user,
+  });
   const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
     onSuccess: () => {
       setInput("");
       void ctx.posts.getAll.invalidate();
       toast.success("Borked!");
     },
-    onError: (e) => {
+    onError: (_e) => {
       console.log("ZOD:", ZodError);
       toast.error("Your posts is too long!");
     },
@@ -33,19 +37,32 @@ const CreatePost = () => {
 
   if (!user) return null;
 
+  const rawMetadata: unknown = user.user_metadata;
+  const metadata =
+    typeof rawMetadata === "object" && rawMetadata !== null
+      ? (rawMetadata as Record<string, unknown>)
+      : undefined;
+  const profileAvatar = typeof currentProfile?.imageUrl === "string" ? currentProfile.imageUrl : undefined;
+  const metadataAvatarUrl = typeof metadata?.avatar_url === "string" ? metadata.avatar_url : undefined;
+  const metadataAvatar = typeof metadata?.avatar === "string" ? metadata.avatar : undefined;
+
+  const profileImageUrl = profileAvatar ||
+    metadataAvatarUrl ||
+    metadataAvatar ||
+    `https://api.dicebear.com/7.x/lorelei/svg?seed=${user.email || 'default'}`;
+
   return (
-    <div className="flex w-full gap-2">
+    <div className="flex w-full items-start gap-3">
       <Image
-        src={user?.imageUrl.toString()}
+        src={profileImageUrl}
         alt="profile image"
-        className="h-16 w-16 rounded-full"
+        className="h-12 w-12 rounded-full border border-sky-200"
         width={56}
         height={56}
-        // placeholder="blur"
       />
       <input
-        className="grow bg-transparent outline-none"
-        placeholder="!!!bork here!!!"
+        className="tw-input grow"
+        placeholder="What's happening, pup?"
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={(e) => {
@@ -59,7 +76,7 @@ const CreatePost = () => {
         disabled={isPosting}
       />
       {input != "" && !isPosting && (
-        <button onClick={() => mutate({ content: input })}>bork</button>
+        <button className="tw-primary-btn" onClick={() => mutate({ content: input })}>bork</button>
       )}
       {isPosting && (
         <div className="flex items-center justify-center">
@@ -71,26 +88,23 @@ const CreatePost = () => {
 };
 
 const Home: NextPage = () => {
-  const { isLoaded: userLoaded, isSignedIn } = useUser();
-
-  if (!userLoaded)
-    return (
-      <div className="flex h-screen w-screen items-center justify-center align-middle">
-        <LoadingDog />
-      </div>
-    );
+  const user = useUser();
 
   // Start fetching asap
   api.posts.getAll.useQuery();
 
-  // Return empty div if user isn't loaded
-  if (!userLoaded) return <div />;
-
   return (
     <PageLayout>
-      <div className="flex border-b border-slate-400 bg-black p-4">
-        {!isSignedIn && <SignInButton />}
-        {isSignedIn && <CreatePost />}
+      <div className="flex border-b bg-white p-4 tw-divider">
+        {!user && (
+          <div className="flex w-full items-center justify-between gap-4">
+            <p className="text-sm tw-muted">Viewing public borks. Sign in to post.</p>
+            <Link href="/signin" className="tw-primary-btn">
+              Sign in
+            </Link>
+          </div>
+        )}
+        {user && <CreatePost />}
       </div>
       <Feed />
     </PageLayout>

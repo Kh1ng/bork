@@ -2,7 +2,88 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Old-school Twitter inspired palette and surface tokens */
+:root {
+  --tw-sky: #d9edf7;
+  --tw-sky-strong: #8ecdf1;
+  --tw-blue: #1d9bf0;
+  --tw-blue-deep: #177cc0;
+  --tw-ink: #1f2d3d;
+  --tw-ink-soft: #536471;
+  --tw-border: #c6d9e6;
+  --tw-paper: #ffffff;
+}
+
 body {
-  @apply bg-slate-900 text-cyan-50;
+  @apply text-slate-900 antialiased;
+  background:
+    radial-gradient(circle at 8% 12%, #f8fcff 0%, rgba(248, 252, 255, 0) 32%),
+    radial-gradient(circle at 100% 0%, #c2e6f9 0%, rgba(194, 230, 249, 0) 28%),
+    linear-gradient(180deg, var(--tw-sky) 0%, #e9f5fb 50%, #f5fbff 100%);
+  font-family: "Trebuchet MS", Tahoma, Verdana, Segoe, sans-serif;
   overscroll-behavior: none;
+}
+
+a {
+  color: var(--tw-blue-deep);
+}
+
+@layer components {
+  .tw-panel {
+    @apply rounded-xl border shadow-sm;
+    border-color: var(--tw-border);
+    background-color: var(--tw-paper);
+  }
+
+  .tw-divider {
+    border-color: var(--tw-border);
+  }
+
+  .tw-muted {
+    color: #405463;
+  }
+
+  .tw-nav-link {
+    @apply inline-flex rounded-full px-3 py-2 text-sm font-semibold transition-colors;
+    color: #11212f;
+  }
+
+  .tw-nav-link:hover {
+    background-color: #e8f4fd;
+    color: #165e8e;
+  }
+
+  .tw-input {
+    @apply w-full rounded-full border px-4 py-3 outline-none transition;
+    border-color: var(--tw-border);
+    background-color: #f7fbfe;
+  }
+
+  .tw-input:focus {
+    border-color: var(--tw-blue);
+    box-shadow: 0 0 0 3px rgba(29, 155, 240, 0.2);
+  }
+
+  .tw-primary-btn {
+    @apply rounded-full px-4 py-2 font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-60;
+    background-color: var(--tw-blue);
+  }
+
+  .tw-primary-btn:hover {
+    background-color: #1686cf;
+  }
+
+  .tw-feed-scroller {
+    scrollbar-width: thin;
+    scrollbar-color: #a5cce3 transparent;
+  }
+
+  .tw-feed-scroller::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .tw-feed-scroller::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background-color: #a5cce3;
+  }
 }

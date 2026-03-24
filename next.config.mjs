@@ -8,15 +8,26 @@
 const config = {
   reactStrictMode: true,
   images: {
-    domains: ["images.clerk.dev", "www.gravatar.com"],
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "img.clerk.com",
+        hostname: "api.dicebear.com",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
       },
       {
         protocol: "https",
         hostname: "www.gravatar.com",
+      },
+      {
+        protocol: "https",
+        hostname: "bork-sb.coltonspurgin.tech",
       },
     ],
   },
