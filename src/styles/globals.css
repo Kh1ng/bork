@@ -4,6 +4,19 @@
 
 /* Old-school Twitter inspired palette and surface tokens */
 :root {
+  --tw-sky: #071a26;
+  --tw-sky-strong: #0c2839;
+  --tw-blue: #1d9bf0;
+  --tw-blue-deep: #8ecdf1;
+  --tw-ink: #e6f2f9;
+  --tw-ink-soft: #9bb3c3;
+  --tw-border: #244459;
+  --tw-paper: #0f2230;
+  --tw-paper-raised: #173243;
+  --tw-input-bg: #112838;
+}
+
+html[data-theme="light"] {
   --tw-sky: #d9edf7;
   --tw-sky-strong: #8ecdf1;
   --tw-blue: #1d9bf0;
@@ -12,16 +25,26 @@
   --tw-ink-soft: #536471;
   --tw-border: #c6d9e6;
   --tw-paper: #ffffff;
+  --tw-paper-raised: #f7fbfe;
+  --tw-input-bg: #f7fbfe;
 }
 
 body {
-  @apply text-slate-900 antialiased;
+  @apply antialiased;
+  color: var(--tw-ink);
+  background:
+    radial-gradient(circle at 8% 12%, #17415b 0%, rgba(23, 65, 91, 0) 32%),
+    radial-gradient(circle at 100% 0%, #0f3147 0%, rgba(15, 49, 71, 0) 28%),
+    linear-gradient(180deg, var(--tw-sky) 0%, #081c29 52%, #061620 100%);
+  font-family: "Trebuchet MS", Tahoma, Verdana, Segoe, sans-serif;
+  overscroll-behavior: none;
+}
+
+html[data-theme="light"] body {
   background:
     radial-gradient(circle at 8% 12%, #f8fcff 0%, rgba(248, 252, 255, 0) 32%),
     radial-gradient(circle at 100% 0%, #c2e6f9 0%, rgba(194, 230, 249, 0) 28%),
     linear-gradient(180deg, var(--tw-sky) 0%, #e9f5fb 50%, #f5fbff 100%);
-  font-family: "Trebuchet MS", Tahoma, Verdana, Segoe, sans-serif;
-  overscroll-behavior: none;
 }
 
 a {
@@ -35,28 +58,41 @@ a {
     background-color: var(--tw-paper);
   }
 
+  .tw-surface {
+    background-color: var(--tw-paper-raised);
+  }
+
+  .tw-row-hover:hover {
+    background-color: rgba(142, 205, 241, 0.12);
+  }
+
   .tw-divider {
     border-color: var(--tw-border);
   }
 
   .tw-muted {
-    color: #405463;
+    color: var(--tw-ink-soft);
+  }
+
+  .tw-heading {
+    color: var(--tw-ink);
   }
 
   .tw-nav-link {
     @apply inline-flex rounded-full px-3 py-2 text-sm font-semibold transition-colors;
-    color: #11212f;
+    color: var(--tw-ink);
   }
 
   .tw-nav-link:hover {
-    background-color: #e8f4fd;
-    color: #165e8e;
+    background-color: rgba(142, 205, 241, 0.18);
+    color: var(--tw-blue-deep);
   }
 
   .tw-input {
     @apply w-full rounded-full border px-4 py-3 outline-none transition;
     border-color: var(--tw-border);
-    background-color: #f7fbfe;
+    background-color: var(--tw-input-bg);
+    color: var(--tw-ink);
   }
 
   .tw-input:focus {
@@ -75,7 +111,7 @@ a {
 
   .tw-feed-scroller {
     scrollbar-width: thin;
-    scrollbar-color: #a5cce3 transparent;
+    scrollbar-color: #4f7992 transparent;
   }
 
   .tw-feed-scroller::-webkit-scrollbar {
@@ -84,6 +120,6 @@ a {
 
   .tw-feed-scroller::-webkit-scrollbar-thumb {
     border-radius: 9999px;
-    background-color: #a5cce3;
+    background-color: #4f7992;
   }
 }

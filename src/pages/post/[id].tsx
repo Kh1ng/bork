@@ -45,7 +45,7 @@ const SinglePost: NextPage<InferGetServerSidePropsType<typeof getServerSideProps
               <div className="mb-2 text-sm tw-muted">
                 @{data.author.username ?? "anonymous"} · {dayjs(data.post.createdAt).fromNow()}
               </div>
-              <p className="text-xl text-slate-800">{data.post.content}</p>
+              <p className="tw-heading text-xl">{data.post.content}</p>
             </article>
           )}
         </div>

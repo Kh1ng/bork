@@ -15,7 +15,7 @@ export const PostView = (props: PostWithUser) => {
   const profileImageUrl = author.profileImageUrl || `https://api.dicebear.com/7.x/lorelei/svg?seed=${username}`;
 
   return (
-    <div key={post.id} className="flex gap-3 border-b p-4 transition-colors hover:bg-[#ecf6fc] tw-divider">
+    <div key={post.id} className="tw-row-hover flex gap-3 border-b p-4 transition-colors tw-divider">
       <Image
         src={profileImageUrl}
         className="h-12 w-12 rounded-full border border-sky-200"
@@ -26,11 +26,11 @@ export const PostView = (props: PostWithUser) => {
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-1 text-sm">
           {hasProfile ? (
-            <Link href={`/@${username}`} className="font-semibold text-slate-900 hover:underline">
+            <Link href={`/@${username}`} className="tw-heading font-semibold hover:underline">
               <span>{`@${username}`}</span>
             </Link>
           ) : (
-            <span className="font-semibold text-slate-900">{`@${username}`}</span>
+            <span className="tw-heading font-semibold">{`@${username}`}</span>
           )}
           <Link href={`/post/${post.id}`} className="tw-muted hover:underline">
             <span>{` · ${dayjs(
@@ -38,7 +38,7 @@ export const PostView = (props: PostWithUser) => {
             ).fromNow()}`}</span>
           </Link>
         </div>
-        <p className="mt-1 whitespace-pre-wrap text-lg leading-relaxed text-slate-800">{post.content}</p>
+        <p className="tw-heading mt-1 whitespace-pre-wrap text-lg leading-relaxed">{post.content}</p>
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ const SignInPage: NextPage = () => {
   return (
     <PageLayout>
       <div className="mx-auto flex w-full max-w-xl flex-col gap-4 p-6">
-        <h1 className="text-2xl font-bold text-slate-900">Sign in</h1>
+        <h1 className="tw-heading text-2xl font-bold">Sign in</h1>
         <p className="text-sm tw-muted">Enter your email and we will send a magic link.</p>
         <input
           type="email"

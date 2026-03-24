@@ -95,7 +95,7 @@ const Home: NextPage = () => {
 
   return (
     <PageLayout>
-      <div className="flex border-b bg-white p-4 tw-divider">
+      <div className="tw-surface mx-3 mt-3 flex rounded-xl border p-4 tw-divider md:mx-4 md:mt-4">
         {!user && (
           <div className="flex w-full items-center justify-between gap-4">
             <p className="text-sm tw-muted">Viewing public borks. Sign in to post.</p>
@@ -106,7 +106,9 @@ const Home: NextPage = () => {
         )}
         {user && <CreatePost />}
       </div>
-      <Feed />
+      <div className="px-3 pb-3 pt-3 md:px-4 md:pb-4">
+        <Feed />
+      </div>
     </PageLayout>
   );
 };

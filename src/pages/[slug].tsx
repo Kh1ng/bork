@@ -16,7 +16,7 @@ const ProfileFeed = (props: { userID: string }) => {
   if (!data || data.length === 0) return <div>User has not posted</div>;
 
   return (
-    <div className="tw-feed-scroller flex max-h-[calc(100vh-320px)] flex-col overflow-y-auto bg-[#f7fbfe]">
+    <div className="tw-feed-scroller tw-surface flex max-h-[calc(100vh-320px)] flex-col overflow-y-auto">
       {data.map((fullPost) => (
         <PostView {...fullPost} key={fullPost.post.id} />
       ))}
@@ -62,11 +62,11 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
             width={128}
             height={128}
             sizes="(max-height: 128px) 128px, 64px"
-            className="absolute bottom-0 left-0 -mb-[64px] ml-4 rounded-full border-4 border-white bg-white"
+            className="absolute bottom-0 left-0 -mb-[64px] ml-4 rounded-full border-4 tw-divider tw-surface"
           />
         </div>
         <div className="h-[64px]"></div>
-        <div className="p-4 text-2xl font-bold text-slate-900">{`@${displayUsername}`}</div>
+        <div className="tw-heading p-4 text-2xl font-bold">{`@${displayUsername}`}</div>
         <div className="w-full border-b tw-divider" />
         <ProfileFeed userID={userId} />
       </PageLayout>

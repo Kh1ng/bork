@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { PageLayout } from "~/components/layout";
 import { api } from "~/utils/api";
 import { toast } from "react-hot-toast";
+import { applyTheme, getStoredTheme, nextTheme, type ThemePreference } from "~/lib/theme";
 
 const UserSettingsPage: React.FC = () => {
   const user = useUser();
@@ -11,6 +12,7 @@ const UserSettingsPage: React.FC = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [loading, setLoading] = useState(false);
+  const [theme, setTheme] = useState<ThemePreference>("dark");
   const profileQuery = api.profile.getCurrentProfile.useQuery(undefined, {
     enabled: !!user,
   });
@@ -28,6 +30,10 @@ const UserSettingsPage: React.FC = () => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     setLastName(profileQuery.data?.lastName || String(user.user_metadata?.lastName || ''));
   }, [user, profileQuery.data]);
+
+  useEffect(() => {
+    setTheme(getStoredTheme());
+  }, []);
 
   const handleUpdateProfile = async () => {
     if (!user) return;
@@ -62,6 +68,12 @@ const UserSettingsPage: React.FC = () => {
     }
   };
 
+  const handleToggleTheme = () => {
+    const updatedTheme = nextTheme(theme);
+    setTheme(updatedTheme);
+    applyTheme(updatedTheme);
+  };
+
   if (!user) {
     return <div>Please sign in to access settings.</div>;
   }
@@ -69,47 +81,59 @@ const UserSettingsPage: React.FC = () => {
   return (
     <PageLayout>
       <div className="p-6">
-        <h1 className="mb-6 text-2xl font-bold text-slate-900">User Settings</h1>
+        <h1 className="tw-heading mb-6 text-2xl font-bold">User Settings</h1>
 
         <div className="space-y-4">
           <div>
-            <label className="mb-2 block text-sm font-medium text-slate-700">Email</label>
+            <label className="tw-muted mb-2 block text-sm font-medium">Email</label>
             <input
               type="email"
               value={user.email || ''}
               disabled
-              className="w-full rounded border border-sky-100 bg-sky-50 p-2 text-slate-500"
+              className="tw-input w-full rounded border p-2 tw-muted"
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-slate-700">Username</label>
+            <label className="tw-muted mb-2 block text-sm font-medium">Username</label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full rounded border border-sky-200 p-2 outline-none focus:border-sky-400"
+              className="tw-input w-full rounded border p-2 outline-none"
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-slate-700">First Name</label>
+            <label className="tw-muted mb-2 block text-sm font-medium">First Name</label>
             <input
               type="text"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              className="w-full rounded border border-sky-200 p-2 outline-none focus:border-sky-400"
+              className="tw-input w-full rounded border p-2 outline-none"
             />
           </div>
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-slate-700">Last Name</label>
+            <label className="tw-muted mb-2 block text-sm font-medium">Last Name</label>
             <input
               type="text"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="w-full rounded border border-sky-200 p-2 outline-none focus:border-sky-400"
+              className="tw-input w-full rounded border p-2 outline-none"
             />
+          </div>
+
+          <div className="tw-panel border p-4">
+            <p className="tw-heading text-sm font-semibold">Theme</p>
+            <p className="tw-muted mt-1 text-sm">Dark mode is the default. Switch anytime.</p>
+            <button
+              type="button"
+              onClick={handleToggleTheme}
+              className="tw-nav-link mt-3"
+            >
+              {theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            </button>
           </div>
 
           <button
