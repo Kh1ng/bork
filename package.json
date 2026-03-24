@@ -8,9 +8,9 @@
     "lint": "SKIP_ENV_VALIDATION=1 next lint",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "coverage": "jest --coverage"
+    "test": "SKIP_ENV_VALIDATION=1 jest",
+    "test:watch": "SKIP_ENV_VALIDATION=1 jest --watch",
+    "coverage": "SKIP_ENV_VALIDATION=1 jest --coverage"
   },
   "dependencies": {
     "@supabase/auth-helpers-nextjs": "^0.10.0",
