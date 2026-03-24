@@ -16,10 +16,13 @@ describe("PostView", () => {
           id: "post-1",
           content: "hello pups",
           createdAt: "2026-03-24T00:00:00.000Z",
+          authorID: "user-1",
         }}
         author={{
           id: "user-1",
           username: "colton",
+          firstName: "Colton",
+          lastName: "Spurgin",
           profileImageUrl: "https://example.com/a.png",
         }}
       />,
@@ -38,10 +41,13 @@ describe("PostView", () => {
           id: "post-2",
           content: "anonymous bork",
           createdAt: "2026-03-24T00:00:00.000Z",
+          authorID: "user-2",
         }}
         author={{
           id: "user-2",
           username: "anonymous",
+          firstName: null,
+          lastName: null,
           profileImageUrl: null,
         }}
       />,
