@@ -1,5 +1,5 @@
 import React from "react";
-import { LoadingPage } from "../../src/components/loading";
+import { LoadingPage } from "../../src/components/Loading";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 

@@ -14,6 +14,20 @@ jest.mock("~/utils/api", () => ({
   },
 }));
 
+jest.mock("~/components/PageLayout", () => ({
+  PageLayout: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+jest.mock("~/components/Loading", () => ({
+  LoadingDog: () => <div role="status">Loading post...</div>,
+}));
+
+jest.mock("~/components/PostView", () => ({
+  PostView: ({ post, author }: { post: { content: string }; author: { username: string | null } }) => (
+    <article><span>@{author.username ?? "anonymous"}</span><p>{post.content}</p></article>
+  ),
+}));
+
 describe("SinglePost page", () => {
   beforeEach(() => {
     useQueryMock.mockReset();
@@ -39,6 +53,17 @@ describe("SinglePost page", () => {
     useQueryMock.mockReturnValue({ data: null, isLoading: false });
     render(<SinglePost id="post-1" />);
     expect(screen.getByText("Post not found.")).toBeInTheDocument();
+  });
+
+  test("renders an unavailable state for query failures", () => {
+    useQueryMock.mockReturnValue({
+      data: null,
+      error: new Error("backend unavailable"),
+      isLoading: false,
+    });
+    render(<SinglePost id="post-1" />);
+    expect(screen.getByText("This bork is unavailable right now.")).toBeInTheDocument();
+    expect(screen.queryByText("Post not found.")).not.toBeInTheDocument();
   });
 
   test("renders post content", () => {

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import type React from "react";
-import PostView from "../../src/components/postview";
+import PostView from "../../src/components/PostView";
 
 jest.mock("next/image", () => ({
   __esModule: true,
@@ -34,7 +34,7 @@ describe("PostView", () => {
     expect(screen.getByText("hello pups")).toBeInTheDocument();
   });
 
-  test("does not render profile link when username is anonymous", () => {
+  test("renders a missing username as anonymous without a profile link", () => {
     render(
       <PostView
         post={{
@@ -45,7 +45,7 @@ describe("PostView", () => {
         }}
         author={{
           id: "user-2",
-          username: "anonymous",
+          username: null,
           firstName: null,
           lastName: null,
           profileImageUrl: null,

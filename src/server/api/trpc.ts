@@ -15,7 +15,7 @@
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
-import { createPagesServerClient } from '@supabase/auth-helpers-nextjs'
+import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 import { createClient } from "@supabase/supabase-js";
 import { env } from "~/env.mjs";
 
@@ -27,9 +27,9 @@ import { env } from "~/env.mjs";
  */
 export const createTRPCContext = async (opts: CreateNextContextOptions) => {
   const { req, res } = opts;
-  
+
   // Create authenticated Supabase Client for user sessions
-  const supabase = createPagesServerClient({ req, res })
+  const supabase = createPagesServerClient({ req, res });
 
   // Public client without cookie/session token attachment.
   // Use this for public read queries to avoid stale/invalid JWT cookie issues.
@@ -41,9 +41,9 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
         autoRefreshToken: false,
         persistSession: false,
       },
-    },
+    }
   );
-  
+
   // Create admin client for server-side operations
   const supabaseAdmin = env.SUPABASE_SERVICE_ROLE_KEY
     ? createClient(
@@ -54,11 +54,13 @@ export const createTRPCContext = async (opts: CreateNextContextOptions) => {
             autoRefreshToken: false,
             persistSession: false,
           },
-        },
+        }
       )
     : supabase;
-  
-  let session: Awaited<ReturnType<typeof supabase.auth.getSession>>["data"]["session"] = null;
+
+  let session: Awaited<
+    ReturnType<typeof supabase.auth.getSession>
+  >["data"]["session"] = null;
 
   try {
     const {
@@ -132,7 +134,6 @@ export const createTRPCRouter = t.router;
 export const publicProcedure = t.procedure;
 
 const enforceUserIsAuthed = t.middleware(async ({ ctx, next }) => {
-  // eslint-disable-line @typescript-eslint/no-unused-vars
   if (!ctx.userId) {
     throw new TRPCError({
       code: "UNAUTHORIZED",

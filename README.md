@@ -1,33 +1,43 @@
-# [Bork!](https://bork.coltonspurgin.tech/)
+# Bork
 
-Bork is a social media app for dog people. Just a Twitter clone with more dogs, entirely for learning purposes.
+Bork is a dog-themed social feed and portfolio project. Visitors can read the public feed. Signed-in users can publish short borks, edit a profile, and switch themes.
 
-## Tech I used
-- Typescript
-- SQL
-- tRPC
-- Vercel
-- Supabase Auth
-- Supabase PostgreSQL
-- GitHub Actions
-- Jest
+The familiar feed makes the full-stack work easy to evaluate. The dog language gives the project its own character without copying another product's brand or feature set.
 
-## What I've Learned
-Besides the normal minor refactors and updates, a big hurdle was that Planet-scale decided to shut down its free tier. I migrated through Railway and eventually moved auth/database to Supabase, which taught me a lot about data migration and auth flows. This included removal of prisma and migrating to Supabase's api. I also am feeling really good about CI & CD through GitHub actions.
+## Stack
 
-## The To-Do List
-- I'd like to get random pictures of dogs from a free API and assign them to new users.
-- More testing in-depth testing, 100% coverage.
+- Next.js, React, and TypeScript
+- tRPC and TanStack Query
+- Supabase authentication and PostgreSQL
+- Jest and Testing Library
+- GitHub Actions and Vercel
 
+## Run locally
 
+Use Node.js 20 or later. Copy `.env.example` to `.env.local`, then add a Supabase project URL and anonymous key.
 
-
-
-Supabase local/admin notes:
 ```bash
-# Public API endpoint (app runtime)
-https://bork-sb.coltonspurgin.tech
-
-# Admin/studio should stay on LAN/private address
-# Example: http://192.168.5.159:54323
+npm install
+npm run dev
 ```
+
+Open `http://localhost:3000`.
+
+## Checks
+
+```bash
+npm test
+npm run lint
+npm run typecheck
+npm run build
+npm run coverage
+```
+
+## Project notes
+
+- The Pages Router keeps the route structure small and direct.
+- tRPC procedures own input validation and data access.
+- Shared profile, theme, and bork modules keep domain rules out of components.
+- The project moved from PlanetScale and Railway to Supabase. The current repository contains only the active application, not one-off migration data.
+
+Production: [bork.coltonspurgin.tech](https://bork.coltonspurgin.tech/)

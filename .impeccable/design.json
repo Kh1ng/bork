@@ -1,0 +1,528 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-23T16:58:57Z",
+  "title": "Design System: Bork",
+  "extensions": {
+    "colorMeta": {
+      "dark-canvas": {
+        "role": "neutral",
+        "displayName": "Midnight Canvas",
+        "canonical": "#031020",
+        "tonalRamp": [
+          "#010b1b",
+          "#182839",
+          "#36475a",
+          "#56687d",
+          "#788ba1",
+          "#9cb0c7",
+          "#c2d7ee",
+          "#dcf1ff"
+        ]
+      },
+      "dark-surface": {
+        "role": "neutral",
+        "displayName": "Night Surface",
+        "canonical": "#071525",
+        "tonalRamp": [
+          "#010b1b",
+          "#192739",
+          "#364659",
+          "#57687c",
+          "#798ba0",
+          "#9db0c6",
+          "#c3d6ed",
+          "#ddf1ff"
+        ]
+      },
+      "dark-surface-raised": {
+        "role": "neutral",
+        "displayName": "Raised Night Surface",
+        "canonical": "#0c1c2d",
+        "tonalRamp": [
+          "#010c1b",
+          "#172839",
+          "#35475a",
+          "#55687d",
+          "#788ba1",
+          "#9cb0c7",
+          "#c2d7ee",
+          "#dcf1ff"
+        ]
+      },
+      "dark-surface-hover": {
+        "role": "neutral",
+        "displayName": "Hover Night Surface",
+        "canonical": "#102438",
+        "tonalRamp": [
+          "#000b1e",
+          "#14283c",
+          "#32475d",
+          "#526880",
+          "#748ca5",
+          "#98b1cb",
+          "#bed7f2",
+          "#d8f2ff"
+        ]
+      },
+      "dark-text": {
+        "role": "neutral",
+        "displayName": "Frost Text",
+        "canonical": "#e8f2fa",
+        "tonalRamp": [
+          "#060c11",
+          "#20272d",
+          "#3e464d",
+          "#5f676e",
+          "#818a92",
+          "#a6afb7",
+          "#ccd6de",
+          "#e6f0f8"
+        ]
+      },
+      "dark-text-muted": {
+        "role": "neutral",
+        "displayName": "Muted Steel",
+        "canonical": "#9cb1c2",
+        "tonalRamp": [
+          "#010c18",
+          "#172836",
+          "#354756",
+          "#556978",
+          "#788c9c",
+          "#9cb1c2",
+          "#c2d7e9",
+          "#dcf2ff"
+        ]
+      },
+      "dark-border": {
+        "role": "neutral",
+        "displayName": "Cool Hairline",
+        "canonical": "#21384b",
+        "tonalRamp": [
+          "#000c1c",
+          "#12293b",
+          "#30485b",
+          "#51697e",
+          "#738da3",
+          "#97b2c9",
+          "#bdd8f0",
+          "#d6f3ff"
+        ]
+      },
+      "dark-accent": {
+        "role": "primary",
+        "displayName": "Clear Bork Blue",
+        "canonical": "#167ef3",
+        "tonalRamp": [
+          "#00062e",
+          "#002455",
+          "#134480",
+          "#2e66ae",
+          "#4d8ada",
+          "#79b0fa",
+          "#a5d7ff",
+          "#c3f2ff"
+        ]
+      },
+      "dark-accent-hover": {
+        "role": "primary",
+        "displayName": "Action Hover Blue",
+        "canonical": "#3596ff",
+        "tonalRamp": [
+          "#00082a",
+          "#002551",
+          "#12457c",
+          "#2d67a9",
+          "#498bd9",
+          "#71b1fe",
+          "#9ed8ff",
+          "#bcf3ff"
+        ]
+      },
+      "dark-danger": {
+        "role": "primary",
+        "displayName": "Warning Red",
+        "canonical": "#ff8b8b",
+        "tonalRamp": [
+          "#200002",
+          "#461114",
+          "#6f2c2e",
+          "#9b494a",
+          "#c96868",
+          "#f98888",
+          "#ffb2b0",
+          "#ffcfcd"
+        ]
+      },
+      "dark-focus": {
+        "role": "primary",
+        "displayName": "Focus Blue",
+        "canonical": "#75b8ff",
+        "tonalRamp": [
+          "#000a25",
+          "#00274c",
+          "#164776",
+          "#3069a2",
+          "#4b8dd1",
+          "#70b3f9",
+          "#96daff",
+          "#b2f4ff"
+        ]
+      },
+      "light-canvas": {
+        "role": "neutral",
+        "displayName": "Pale Canvas",
+        "canonical": "#eef5f9",
+        "tonalRamp": [
+          "#080c0e",
+          "#22272a",
+          "#404649",
+          "#61676a",
+          "#848a8e",
+          "#a8afb3",
+          "#cfd5d9",
+          "#e9f0f4"
+        ]
+      },
+      "light-surface": {
+        "role": "neutral",
+        "displayName": "White Surface",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#aeaeae",
+          "#d4d4d4",
+          "#eeeeee"
+        ]
+      },
+      "light-surface-raised": {
+        "role": "neutral",
+        "displayName": "Raised Pale Surface",
+        "canonical": "#f4f8fb",
+        "tonalRamp": [
+          "#090c0d",
+          "#242729",
+          "#424548",
+          "#636769",
+          "#868a8c",
+          "#abaeb1",
+          "#d1d5d8",
+          "#ebeff2"
+        ]
+      },
+      "light-surface-hover": {
+        "role": "neutral",
+        "displayName": "Pale Hover",
+        "canonical": "#e9f2f8",
+        "tonalRamp": [
+          "#060c10",
+          "#21272c",
+          "#3f464b",
+          "#60676c",
+          "#828a90",
+          "#a7afb5",
+          "#cdd6dc",
+          "#e7f0f6"
+        ]
+      },
+      "light-text": {
+        "role": "neutral",
+        "displayName": "Ink Text",
+        "canonical": "#102334",
+        "tonalRamp": [
+          "#000c1b",
+          "#152839",
+          "#33475a",
+          "#53697d",
+          "#768ca1",
+          "#9ab1c7",
+          "#bfd7ee",
+          "#d9f2ff"
+        ]
+      },
+      "light-text-muted": {
+        "role": "neutral",
+        "displayName": "Muted Slate",
+        "canonical": "#526b7c",
+        "tonalRamp": [
+          "#000d1a",
+          "#122938",
+          "#304858",
+          "#516a7b",
+          "#738d9f",
+          "#97b2c5",
+          "#bdd9ec",
+          "#d7f3ff"
+        ]
+      },
+      "light-border": {
+        "role": "neutral",
+        "displayName": "Pale Hairline",
+        "canonical": "#c6d7e2",
+        "tonalRamp": [
+          "#030d14",
+          "#1b2831",
+          "#394750",
+          "#596972",
+          "#7c8c96",
+          "#a0b1bb",
+          "#c6d7e2",
+          "#e0f1fd"
+        ]
+      },
+      "light-accent": {
+        "role": "primary",
+        "displayName": "Light Bork Blue",
+        "canonical": "#086fc8",
+        "tonalRamp": [
+          "#000630",
+          "#002458",
+          "#004583",
+          "#1e67b1",
+          "#4a8cd5",
+          "#77b2f5",
+          "#a4d9ff",
+          "#c3f3ff"
+        ]
+      },
+      "light-accent-hover": {
+        "role": "primary",
+        "displayName": "Light Action Hover Blue",
+        "canonical": "#055ca7",
+        "tonalRamp": [
+          "#000433",
+          "#00245c",
+          "#004487",
+          "#1e67b1",
+          "#4f8cd0",
+          "#7bb2f0",
+          "#a8d9ff",
+          "#c7f3ff"
+        ]
+      },
+      "light-danger": {
+        "role": "primary",
+        "displayName": "Light Warning Red",
+        "canonical": "#b4232c",
+        "tonalRamp": [
+          "#280000",
+          "#500007",
+          "#7b1f21",
+          "#a73e3d",
+          "#ca6864",
+          "#ec918c",
+          "#ffbcb6",
+          "#ffd9d3"
+        ]
+      },
+      "light-focus": {
+        "role": "primary",
+        "displayName": "Light Focus Blue",
+        "canonical": "#086fc8",
+        "tonalRamp": [
+          "#000630",
+          "#002458",
+          "#004583",
+          "#1e67b1",
+          "#4a8cd5",
+          "#77b2f5",
+          "#a4d9ff",
+          "#c3f3ff"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The sign-in page title."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Route titles, profile names, and the Bork wordmark."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Project-rail headings and prominent state titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Forms, explanatory copy, and general content."
+      },
+      "post": {
+        "displayName": "Post",
+        "purpose": "Public bork content in the reading lane."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Field labels, buttons, metadata emphasis, and project details."
+      },
+      "control": {
+        "displayName": "Control",
+        "purpose": "Secondary buttons and restrained utility actions."
+      },
+      "navigation": {
+        "displayName": "Navigation",
+        "purpose": "Desktop rail destinations."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Mobile navigation and compact composer guidance."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "color-state",
+        "value": "150ms cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Hover and state color changes."
+      },
+      {
+        "name": "post-settle",
+        "value": "420ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "The first feed row fades from a 13% accent tint after insertion."
+      },
+      {
+        "name": "spinner",
+        "value": "1s linear infinite",
+        "purpose": "Small in-button loading spinner."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms, one iteration",
+        "purpose": "Replaces animation and transition durations when reduced motion is requested."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single filled blue action used for posting, sign-in, and saves.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">BORK</button>",
+      "css": ".ds-btn-primary { display:inline-flex; min-height:40px; align-items:center; justify-content:center; padding:0 20px; border:0; border-radius:9999px; background:var(--bork-accent, #167ef3); color:#fff; font:700 14px/20px ui-rounded, \"Avenir Next\", Avenir, \"Segoe UI\", sans-serif; transition:background-color 150ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-primary:hover:not(:disabled) { background:var(--bork-accent-hover, #3596ff); } .ds-btn-primary:focus-visible { outline:2px solid var(--bork-focus, #75b8ff); outline-offset:3px; } .ds-btn-primary:disabled { cursor:not-allowed; opacity:.5; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A bordered pill for retries, theme changes, and source links.",
+      "html": "<button class=\"ds-btn-secondary\" type=\"button\">View source</button>",
+      "css": ".ds-btn-secondary { display:inline-flex; min-height:40px; align-items:center; justify-content:center; padding:0 16px; border:1px solid var(--bork-border, #21384b); border-radius:9999px; background:transparent; color:var(--bork-text, #e8f2fa); font:600 14px/20px ui-rounded, \"Avenir Next\", Avenir, \"Segoe UI\", sans-serif; transition:background-color 150ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-secondary:hover { background:var(--bork-surface-hover, #102438); } .ds-btn-secondary:focus-visible { outline:2px solid var(--bork-focus, #75b8ff); outline-offset:3px; } .ds-btn-secondary:active { background:var(--bork-surface-raised, #0c1c2d); }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "The shared email and profile field with a raised tonal fill.",
+      "html": "<label class=\"ds-field-label\" for=\"ds-email\">Email address</label><input class=\"ds-input\" id=\"ds-email\" type=\"email\" placeholder=\"you@example.com\">",
+      "css": ".ds-field-label { display:block; margin-bottom:8px; color:var(--bork-text, #e8f2fa); font:700 14px/20px ui-rounded, \"Avenir Next\", Avenir, \"Segoe UI\", sans-serif; } .ds-input { width:100%; padding:12px 16px; border:1px solid var(--bork-border, #21384b); border-radius:12px; outline:none; background:var(--bork-surface-raised, #0c1c2d); color:var(--bork-text, #e8f2fa); font:400 16px/24px ui-rounded, \"Avenir Next\", Avenir, \"Segoe UI\", sans-serif; transition:border-color 150ms cubic-bezier(0.4,0,0.2,1); } .ds-input::placeholder { color:var(--bork-text-muted, #9cb1c2); opacity:1; } .ds-input:focus { border-color:var(--bork-accent, #167ef3); } .ds-input:focus-visible { outline:2px solid var(--bork-focus, #75b8ff); outline-offset:3px; } .ds-input:disabled { cursor:not-allowed; opacity:.62; }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "refersTo": "nav-link-active",
+      "description": "A compact left-rail destination with a blue active icon.",
+      "html": "<a class=\"ds-nav-link\" aria-current=\"page\" href=\"#\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M4 5.5h16M4 12h16M4 18.5h10\"/></svg><span>Feed</span></a>",
+      "css": ".ds-nav-link { display:flex; min-height:44px; align-items:center; gap:12px; padding:0 12px; border-radius:12px; color:var(--bork-text-muted, #9cb1c2); text-decoration:none; font:600 15px/20px ui-rounded, \"Avenir Next\", Avenir, \"Segoe UI\", sans-serif; transition:color 150ms cubic-bezier(0.4,0,0.2,1), background-color 150ms cubic-bezier(0.4,0,0.2,1); } .ds-nav-link svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; } .ds-nav-link:hover, .ds-nav-link[aria-current=\"page\"] { color:var(--bork-text, #e8f2fa); background:var(--bork-surface-hover, #102438); } .ds-nav-link[aria-current=\"page\"] svg { color:var(--bork-accent, #167ef3); } .ds-nav-link:focus-visible { outline:2px solid var(--bork-focus, #75b8ff); outline-offset:3px; }"
+    },
+    {
+      "name": "Post Row",
+      "kind": "card",
+      "refersTo": "post-row",
+      "description": "A border-separated public bork in the continuous reading lane.",
+      "html": "<article class=\"ds-post-row\"><span class=\"ds-post-avatar\" aria-hidden=\"true\">CS</span><div><div class=\"ds-post-meta\"><strong>@colton</strong><span>2m</span></div><p>Good code. Better dogs.</p></div></article>",
+      "css": ".ds-post-row { display:flex; gap:12px; padding:20px 16px; border-bottom:1px solid var(--bork-border, #21384b); background:transparent; color:var(--bork-text, #e8f2fa); font-family:ui-rounded, \"Avenir Next\", Avenir, \"Segoe UI\", sans-serif; transition:background-color 150ms cubic-bezier(0.4,0,0.2,1); } .ds-post-row:hover { background:var(--bork-surface-hover, #102438); } .ds-post-avatar { display:flex; width:48px; height:48px; flex:0 0 48px; align-items:center; justify-content:center; border:2px solid color-mix(in srgb, var(--bork-accent, #167ef3) 48%, var(--bork-border, #21384b)); border-radius:9999px; background:var(--bork-surface-raised, #0c1c2d); color:var(--bork-text-muted, #9cb1c2); font-size:12px; font-weight:700; } .ds-post-meta { display:flex; gap:8px; align-items:baseline; color:var(--bork-text-muted, #9cb1c2); font-size:14px; line-height:20px; } .ds-post-meta strong { color:var(--bork-text, #e8f2fa); } .ds-post-row p { max-width:70ch; margin:8px 0 0; white-space:pre-wrap; font-size:17px; line-height:28px; } @media (min-width:768px) { .ds-post-row { padding-right:24px; padding-left:24px; } }"
+    },
+    {
+      "name": "Composer",
+      "kind": "custom",
+      "refersTo": "input",
+      "description": "The raised feed composer ending in the only filled action.",
+      "html": "<form class=\"ds-composer\"><label class=\"ds-sr-only\" for=\"ds-bork\">Write a bork</label><textarea id=\"ds-bork\" placeholder=\"What's happening, pup?\"></textarea><div class=\"ds-composer-footer\"><span>Short posts for good dogs and their people.</span><button type=\"submit\">BORK</button></div></form>",
+      "css": ".ds-composer { padding:20px 16px; background:var(--bork-surface-raised, #0c1c2d); color:var(--bork-text, #e8f2fa); font-family:ui-rounded, \"Avenir Next\", Avenir, \"Segoe UI\", sans-serif; } .ds-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; } .ds-composer textarea { width:100%; min-height:92px; resize:none; padding:4px 0; border:0; outline:none; background:transparent; color:var(--bork-text, #e8f2fa); caret-color:var(--bork-accent, #167ef3); font:400 18px/28px ui-rounded, \"Avenir Next\", Avenir, \"Segoe UI\", sans-serif; } .ds-composer textarea::placeholder, .ds-composer-footer span { color:var(--bork-text-muted, #9cb1c2); } .ds-composer textarea:focus-visible { outline:2px solid var(--bork-focus, #75b8ff); outline-offset:3px; } .ds-composer-footer { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:12px; padding-top:12px; border-top:1px solid var(--bork-border, #21384b); font-size:12px; line-height:16px; } .ds-composer button { display:inline-flex; min-width:80px; min-height:40px; align-items:center; justify-content:center; padding:0 20px; border:0; border-radius:9999px; background:var(--bork-accent, #167ef3); color:#fff; font-size:14px; font-weight:700; } .ds-composer button:hover { background:var(--bork-accent-hover, #3596ff); } .ds-composer button:focus-visible { outline:2px solid var(--bork-focus, #75b8ff); outline-offset:3px; }"
+    },
+    {
+      "name": "Mobile Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link-active",
+      "description": "The three-destination bottom bar shown below 768px.",
+      "html": "<nav class=\"ds-mobile-nav\" aria-label=\"Mobile navigation\"><a aria-current=\"page\" href=\"#\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><path d=\"M4 5.5h16M4 12h16M4 18.5h10\"/></svg><span>Feed</span></a><a href=\"#\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"8\" r=\"3.5\"/><path d=\"M5 20c.8-4 3.1-6 7-6s6.2 2 7 6\"/></svg><span>Sign in</span></a><a href=\"#\"><svg aria-hidden=\"true\" viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M12 3v3m0 12v3M3 12h3m12 0h3\"/></svg><span>Settings</span></a></nav>",
+      "css": ".ds-mobile-nav { display:grid; height:64px; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid var(--bork-border, #21384b); background:var(--bork-surface, #071525); color:var(--bork-text, #e8f2fa); font-family:ui-rounded, \"Avenir Next\", Avenir, \"Segoe UI\", sans-serif; } .ds-mobile-nav a { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; color:var(--bork-text-muted, #9cb1c2); text-decoration:none; font-size:12px; line-height:16px; font-weight:600; } .ds-mobile-nav svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; } .ds-mobile-nav a[aria-current=\"page\"] { color:var(--bork-text, #e8f2fa); background:var(--bork-surface-hover, #102438); } .ds-mobile-nav a[aria-current=\"page\"] svg { color:var(--bork-accent, #167ef3); } .ds-mobile-nav a:focus-visible { outline:2px solid var(--bork-focus, #75b8ff); outline-offset:3px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Night Rails",
+    "overview": "Night Rails is a familiar social feed drawn as one continuous midnight workspace. A compact navigation rail, a broad reading lane, and a concise project rail share the same canvas. Cool hairlines and small tonal shifts separate regions without turning the page into a stack of cards.\n\nBork's personality lives in the dog mark, the word \"bork,\" friendly copy, circular portraits, and the animated loading dog. Controls stay recognizable. The result should read first as a finished social product, then as a dog-first project with a point of view.",
+    "keyCharacteristics": [
+      "Dark mode is primary, with a complete light role mapping.",
+      "Desktop uses one continuous three-lane shell; mobile replaces both rails with a header and bottom navigation.",
+      "One filled blue action carries the strongest emphasis.",
+      "Tonal surfaces and cool hairlines provide depth without authored shadows.",
+      "Rounded controls and circular avatars soften an otherwise compact layout."
+    ],
+    "rules": [
+      {
+        "name": "The One Blue Action Rule",
+        "body": "Blue may identify state, focus, and links, but only the primary action receives a filled saturated treatment.",
+        "section": "colors"
+      },
+      {
+        "name": "The Role-Pair Rule",
+        "body": "Every dark semantic role has a light counterpart. Theme changes swap role values, not component structure.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Family Rule",
+        "body": "Use the rounded system stack for every role. Hierarchy comes from size, weight, line height, and tracking, not a second typeface.",
+        "section": "typography"
+      },
+      {
+        "name": "The Whole-Rail Collapse Rule",
+        "body": "Do not squeeze desktop rails into narrow sidebars. Remove them as complete units and supply the mobile header and bottom navigation.",
+        "section": "layout"
+      },
+      {
+        "name": "The Reading-Lane Rule",
+        "body": "Keep composer, state messages, and posts in the same 720px lane, separated by hairlines rather than floating cards.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat-by-Default Rule",
+        "body": "Use tonal layering and cool hairlines at rest. Do not add shadows to feed rows, rails, fields, or cards.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Compact-Round Rule",
+        "body": "Rounded shapes soften controls without turning content regions into bubbles. Feed rows and page sections remain square and continuous.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do keep dark mode as the primary presentation and maintain every light-mode role.",
+      "Do reserve the filled blue pill for the strongest action in a region.",
+      "Do use hairlines and tonal surfaces to separate rails, composer, posts, forms, and empty states.",
+      "Do keep dog personality in the mark, loading asset, portraits, vocabulary, and concise copy.",
+      "Do preserve the global 2px focus-visible outline and reduced-motion fallback.",
+      "Do give every mobile `aria-current=\"page\"` link primary text, a hover-surface fill, and a blue icon."
+    ],
+    "donts": [
+      "Don't add gradients. Every shipped surface is a solid semantic color.",
+      "Don't add glass effects, blur, translucent panels, or glow.",
+      "Don't wrap feed rows or rail sections in floating rounded cards.",
+      "Don't introduce a second saturated action color or use warning red as decoration.",
+      "Don't add novelty controls or dog-themed chrome such as paw-shaped buttons.",
+      "Don't animate routine content beyond the short first-row settle and ordinary state transitions.",
+      "Don't present a query failure as an empty or not-found state."
+    ]
+  }
+}

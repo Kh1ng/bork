@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Feed from "../../src/components/feed";
+import Feed from "../../src/components/Feed";
 
 const useQueryMock = jest.fn();
 
@@ -14,13 +14,13 @@ jest.mock("~/utils/api", () => ({
   },
 }));
 
-jest.mock("~/components/postview", () => ({
+jest.mock("~/components/PostView", () => ({
   PostView: ({ post }: { post: { id: string; content: string } }) => (
     <div data-testid="post-view">{post.content}</div>
   ),
 }));
 
-jest.mock("~/components/loading", () => ({
+jest.mock("~/components/Loading", () => ({
   LoadingDog: () => <div data-testid="loading-dog">loading</div>,
 }));
 
@@ -42,7 +42,9 @@ describe("Feed", () => {
 
     render(<Feed />);
 
-    expect(screen.getByText("Something went wrong!")).toBeInTheDocument();
+    expect(screen.getByText("Couldn’t load the public borks.")).toBeInTheDocument();
+    expect(screen.getByText("The feed is unavailable right now.")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Try again" })).toBeInTheDocument();
   });
 
   test("renders all posts when data is returned", () => {

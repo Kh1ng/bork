@@ -6,6 +6,8 @@
 
 /** @type {import("next").NextConfig} */
 const config = {
+  agentRules: false,
+  allowedDevOrigins: ["127.0.0.1"],
   reactStrictMode: true,
   images: {
     remotePatterns: [
