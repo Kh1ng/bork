@@ -2,124 +2,221 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Old-school Twitter inspired palette and surface tokens */
 :root {
-  --tw-sky: #071a26;
-  --tw-sky-strong: #0c2839;
-  --tw-blue: #1d9bf0;
-  --tw-blue-deep: #8ecdf1;
-  --tw-ink: #e6f2f9;
-  --tw-ink-soft: #9bb3c3;
-  --tw-border: #244459;
-  --tw-paper: #0f2230;
-  --tw-paper-raised: #173243;
-  --tw-input-bg: #112838;
+  color-scheme: dark;
+  --bork-canvas: #031020;
+  --bork-surface: #071525;
+  --bork-surface-raised: #0c1c2d;
+  --bork-surface-hover: #102438;
+  --bork-text: #e8f2fa;
+  --bork-text-muted: #9cb1c2;
+  --bork-border: #21384b;
+  --bork-accent: #167ef3;
+  --bork-accent-hover: #3596ff;
+  --bork-danger: #ff8b8b;
+  --bork-focus: #75b8ff;
 }
 
 html[data-theme="light"] {
-  --tw-sky: #d9edf7;
-  --tw-sky-strong: #8ecdf1;
-  --tw-blue: #1d9bf0;
-  --tw-blue-deep: #177cc0;
-  --tw-ink: #1f2d3d;
-  --tw-ink-soft: #536471;
-  --tw-border: #c6d9e6;
-  --tw-paper: #ffffff;
-  --tw-paper-raised: #f7fbfe;
-  --tw-input-bg: #f7fbfe;
+  color-scheme: light;
+  --bork-canvas: #eef5f9;
+  --bork-surface: #ffffff;
+  --bork-surface-raised: #f4f8fb;
+  --bork-surface-hover: #e9f2f8;
+  --bork-text: #102334;
+  --bork-text-muted: #526b7c;
+  --bork-border: #c6d7e2;
+  --bork-accent: #086fc8;
+  --bork-accent-hover: #055ca7;
+  --bork-danger: #b4232c;
+  --bork-focus: #086fc8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--bork-canvas);
 }
 
 body {
-  @apply antialiased;
-  color: var(--tw-ink);
-  background:
-    radial-gradient(circle at 8% 12%, #17415b 0%, rgba(23, 65, 91, 0) 32%),
-    radial-gradient(circle at 100% 0%, #0f3147 0%, rgba(15, 49, 71, 0) 28%),
-    linear-gradient(180deg, var(--tw-sky) 0%, #081c29 52%, #061620 100%);
-  font-family: "Trebuchet MS", Tahoma, Verdana, Segoe, sans-serif;
-  overscroll-behavior: none;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--bork-text);
+  background: var(--bork-canvas);
+  font-family: ui-rounded, "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  font-feature-settings: "kern", "liga";
+  text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;
 }
 
-html[data-theme="light"] body {
-  background:
-    radial-gradient(circle at 8% 12%, #f8fcff 0%, rgba(248, 252, 255, 0) 32%),
-    radial-gradient(circle at 100% 0%, #c2e6f9 0%, rgba(194, 230, 249, 0) 28%),
-    linear-gradient(180deg, var(--tw-sky) 0%, #e9f5fb 50%, #f5fbff 100%);
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+textarea {
+  caret-color: var(--bork-accent);
 }
 
 a {
-  color: var(--tw-blue-deep);
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+::selection {
+  color: #ffffff;
+  background: var(--bork-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--bork-focus);
+  outline-offset: 3px;
 }
 
 @layer components {
-  .tw-panel {
-    @apply rounded-xl border shadow-sm;
-    border-color: var(--tw-border);
-    background-color: var(--tw-paper);
+  .bork-divider {
+    border-color: var(--bork-border);
   }
 
-  .tw-surface {
-    background-color: var(--tw-paper-raised);
+  .bork-heading {
+    color: var(--bork-text);
   }
 
-  .tw-row-hover:hover {
-    background-color: rgba(142, 205, 241, 0.12);
+  .bork-muted {
+    color: var(--bork-text-muted);
   }
 
-  .tw-divider {
-    border-color: var(--tw-border);
+  .bork-surface {
+    background: var(--bork-surface);
   }
 
-  .tw-muted {
-    color: var(--tw-ink-soft);
+  .bork-surface-raised {
+    background: var(--bork-surface-raised);
   }
 
-  .tw-heading {
-    color: var(--tw-ink);
+  .bork-nav-link {
+    @apply flex min-h-11 items-center gap-3 rounded-xl px-3 text-[15px] font-semibold transition-colors;
+    color: var(--bork-text-muted);
   }
 
-  .tw-nav-link {
-    @apply inline-flex rounded-full px-3 py-2 text-sm font-semibold transition-colors;
-    color: var(--tw-ink);
+  .bork-nav-link:hover,
+  .bork-nav-link[aria-current="page"] {
+    color: var(--bork-text);
+    background: var(--bork-surface-hover);
   }
 
-  .tw-nav-link:hover {
-    background-color: rgba(142, 205, 241, 0.18);
-    color: var(--tw-blue-deep);
+  .bork-nav-link[aria-current="page"] svg {
+    color: var(--bork-accent);
   }
 
-  .tw-input {
-    @apply w-full rounded-full border px-4 py-3 outline-none transition;
-    border-color: var(--tw-border);
-    background-color: var(--tw-input-bg);
-    color: var(--tw-ink);
+  .bork-mobile-nav-link {
+    @apply flex flex-col items-center justify-center gap-1 text-xs font-semibold;
+    color: var(--bork-text-muted);
   }
 
-  .tw-input:focus {
-    border-color: var(--tw-blue);
-    box-shadow: 0 0 0 3px rgba(29, 155, 240, 0.2);
+  .bork-mobile-nav-link[aria-current="page"] {
+    color: var(--bork-text);
+    background: var(--bork-surface-hover);
   }
 
-  .tw-primary-btn {
-    @apply rounded-full px-4 py-2 font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-60;
-    background-color: var(--tw-blue);
+  .bork-mobile-nav-link[aria-current="page"] svg {
+    color: var(--bork-accent);
   }
 
-  .tw-primary-btn:hover {
-    background-color: #1686cf;
+  .bork-input {
+    @apply w-full rounded-xl border px-4 py-3 outline-none transition-colors;
+    color: var(--bork-text);
+    border-color: var(--bork-border);
+    background: var(--bork-surface-raised);
   }
 
-  .tw-feed-scroller {
+  .bork-input::placeholder {
+    color: var(--bork-text-muted);
+    opacity: 1;
+  }
+
+  .bork-input:focus {
+    border-color: var(--bork-accent);
+  }
+
+  .bork-input:disabled {
+    cursor: not-allowed;
+    opacity: 0.62;
+  }
+
+  .bork-primary-btn {
+    @apply inline-flex min-h-10 items-center justify-center rounded-full px-5 text-sm font-bold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+    background: var(--bork-accent);
+  }
+
+  .bork-primary-btn:hover:not(:disabled) {
+    background: var(--bork-accent-hover);
+  }
+
+  .bork-secondary-btn {
+    @apply inline-flex min-h-10 items-center justify-center rounded-full border px-4 text-sm font-semibold transition-colors;
+    color: var(--bork-text);
+    border-color: var(--bork-border);
+  }
+
+  .bork-secondary-btn:hover {
+    background: var(--bork-surface-hover);
+  }
+
+  .bork-post-row {
+    @apply flex gap-3 border-b px-4 py-5 transition-colors md:px-6;
+    border-color: var(--bork-border);
+  }
+
+  .bork-post-row:hover {
+    background: var(--bork-surface-hover);
+  }
+
+  .bork-post-row:first-child {
+    animation: bork-settle 420ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .bork-avatar {
+    @apply shrink-0 rounded-full border-2 object-cover;
+    border-color: color-mix(in srgb, var(--bork-accent) 48%, var(--bork-border));
+    background: var(--bork-surface-raised);
+  }
+
+  .bork-scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: #4f7992 transparent;
+    scrollbar-color: var(--bork-border) transparent;
   }
 
-  .tw-feed-scroller::-webkit-scrollbar {
+  .bork-scrollbar::-webkit-scrollbar {
     width: 8px;
   }
 
-  .tw-feed-scroller::-webkit-scrollbar-thumb {
-    border-radius: 9999px;
-    background-color: #4f7992;
+  .bork-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: var(--bork-border);
+  }
+}
+
+@keyframes bork-settle {
+  from {
+    background: color-mix(in srgb, var(--bork-accent) 13%, var(--bork-surface));
+  }
+  to {
+    background: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

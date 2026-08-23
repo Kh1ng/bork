@@ -35,7 +35,16 @@ const MyApp: AppType<AppProps> = ({ Component, pageProps }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Analytics />
-      <Toaster />
+      <Toaster
+        position="bottom-center"
+        toastOptions={{
+          style: {
+            color: "var(--bork-text)",
+            background: "var(--bork-surface-raised)",
+            border: "1px solid var(--bork-border)",
+          },
+        }}
+      />
       <Component {...pageProps} />
     </SessionContextProvider>
   );

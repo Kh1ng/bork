@@ -1,0 +1,15 @@
+{
+  "prompt": "Use case: ui-mockup\nAsset type: full-fidelity desktop web app direction comp, 1440x900 landscape\nPrimary request: Design the first viewport of Bork, a polished dog-themed short-post social app and resume project, as an early one-bit desktop called Bork OS. The app must visibly function as a readable social feed, not as a retro poster.\nScene/backdrop: black-and-white pixel desktop plane with strict one-pixel window chrome, ordered dither patterns for every gray, one primary timeline window and two smaller functional windows.\nSubject: Bork dog social feed. Show pixel dog mark and Bork title, navigation labels Feed, My kennel, Settings; composer “Leave a bork”; authentic short dog posts, dog portrait icons, timestamps and profile names. Use truthful demo copy only, no metrics or customer claims.\nStyle/medium: high-end product UI mockup faithful to an early Macintosh one-bit interface, crisp at integer scale, playful but disciplined.\nComposition/framing: 1440x900 straight-on browser viewport. Timeline owns the largest window. Compact pack navigator overlaps one edge and composer overlaps another without hiding content. Clear title bars, pressed states, marching-ant focus only on active composer.\nLighting/mood: flat emissive screen, precise and charming.\nColor palette: pure #ffffff and #000000 only, ordered pixel dithers for tone.\nMaterials/textures: one-bit pixels, one-pixel chrome, 32-pixel icons, bitmap labels.\nText (verbatim where legible): “Bork OS”, “Public Borks”, “Leave a bork”, “BORK”, “Feed”, “My kennel”, “Settings”, “Mabel”, “Found the sunny square. Claimed it.”\nConstraints: desktop web interface; familiar posting and reading affordances; dog-first and self-aware; true black and white only; no grayscale anti-aliased look; no fake traction; no paw-print wallpaper; no gradients; no glassmorphism; no Twitter layout.\nAvoid: poster, generic modern cards, vaporwave, colorful retro computing, tiny unreadable text, dashboard metrics, novelty controls, extra features.",
+  "createdAt": "2026-08-23T15:00:00.565Z",
+  "metadata": {
+    "useCase": "ui-mockup",
+    "assetType": "full-fidelity desktop web app direction comp",
+    "dimensions": {
+      "width": 1440,
+      "height": 900
+    },
+    "format": "webp",
+    "palette": ["#000000", "#ffffff"],
+    "generator": "OpenAI built-in image_gen"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "prompt": "Use case: ui-mockup\nAsset type: full-fidelity desktop web app direction comp, 1440x900 landscape\nPrimary request: Design the first viewport of Bork, a polished dog-themed short-post social app and resume project, as a municipal dog-park trailhead and wayfinding system. The app must visibly function as a readable social feed, not as an outdoors ad or map illustration.\nScene/backdrop: a full browser viewport built from painted park-sign fields, a restrained topographic line field, enamel route markers, and generous paper-like reading zones.\nSubject: Bork dog social feed. Show logo/name Bork, navigation labels Feed, Pack profile, Settings; an obvious compose control labeled “Leave a bork”; authentic short dog posts with warm dog portraits, timestamps and names. Use truthful demo copy only, no metrics or customer claims.\nStyle/medium: high-end product UI mockup with civic wayfinding clarity, bold typographic hierarchy, durable physical sign character, distinctly not Twitter.\nComposition/framing: 1440x900 straight-on browser viewport. A bold trailhead masthead leads directly into one route-like feed. The orange BORK action reads as the unmistakable trail marker. Main reading lane dominates; navigation is compact and highly legible.\nLighting/mood: bright overcast park daylight, welcoming and capable.\nColor palette: #17372c park green, #f7f1df sign cream, #e8592a marker orange, #79a987 route green, near-black ink.\nMaterials/textures: painted park signage, subtle topographic linework, enamel route markers, screenprinted labels.\nText (verbatim where legible): “Bork”, “Leave a bork”, “BORK”, “Feed”, “Pack profile”, “Settings”, “Trail status: excellent”, “Mabel”, “Found the sunny square. Claimed it.”\nConstraints: desktop web interface; familiar posting and reading affordances; dog-first and self-aware; no fake traction; no bone-shaped buttons; no paw-print wallpaper; no gradients; no glassmorphism; no excessive rounded cards; no Twitter blue; no three-column Twitter clone.\nAvoid: poster, landscape photograph, hiking brand landing page, literal geographic map replacing feed, illegible decorative text, dashboard metrics, novelty controls, extra features.",
+  "createdAt": "2026-08-23T15:00:18.856Z",
+  "metadata": {
+    "useCase": "ui-mockup",
+    "assetType": "desktop web app direction comp",
+    "generatedWith": "built-in image_gen",
+    "format": "webp",
+    "width": 1440,
+    "height": 900
+  }
+}

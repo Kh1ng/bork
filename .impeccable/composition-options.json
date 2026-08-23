@@ -1,0 +1,43 @@
+{
+  "title": "Choose Bork's dark-mode composition",
+  "question": "The visual world is fixed: a polished, familiar social feed. Choose the composition the implementation should match.",
+  "options": [
+    {
+      "id": "balanced-shell",
+      "label": "Balanced Shell",
+      "kicker": "CHOSEN DIRECTION COMP",
+      "lineage": "dark social app shell with a high-contrast reading column",
+      "thesis": "A conventional three-column frame makes every social affordance immediately recognizable.",
+      "palette": ["#0f172a", "#ffffff", "#1d9bf0"],
+      "materials": ["clean app chrome", "bright reading paper", "standard line icons"],
+      "viewport": "Navigation, centered timeline, and a quiet context rail share the viewport; the light feed column carries maximum contrast.",
+      "risk": "The white timeline is brighter and more Twitter-like than the requested dark-first presentation.",
+      "comp": ".impeccable/mocks/social-feed-balanced.webp"
+    },
+    {
+      "id": "night-rails",
+      "label": "Night Rails",
+      "kicker": "DARK-FIRST",
+      "lineage": "one continuous midnight app with three purposeful rails",
+      "thesis": "Navigation, the live feed, and honest project proof each get a clear lane without breaking the dark canvas.",
+      "palette": ["#07111f", "#0d1b2a", "#2f9df4", "#d9e7f2"],
+      "materials": ["continuous dark canvas", "tonal elevation", "cool hairline dividers"],
+      "viewport": "A compact navigation and sign-in rail, broad feed lane, and small Built by Colton rail fill the first viewport.",
+      "risk": "The right rail must remain concise or it will read like a portfolio sidebar instead of product context.",
+      "comp": ".impeccable/mocks/social-feed-night.webp"
+    },
+    {
+      "id": "focus-lane",
+      "label": "Focus Lane",
+      "kicker": "DARKEST",
+      "lineage": "a narrow utility rail and one uninterrupted feed",
+      "thesis": "Bork puts almost all visual weight on writing and reading, with personality carried by dogs, copy, and one blue action.",
+      "palette": ["#060d18", "#0a1522", "#2795e8", "#edf5fb"],
+      "materials": ["near-black feed plane", "precise hairlines", "subtle tonal state"],
+      "viewport": "A narrow left rail supports a generous integrated composer and four border-separated posts; the right side stays mostly quiet.",
+      "risk": "The restraint leaves fewer places to explain the engineering at first glance.",
+      "comp": ".impeccable/mocks/social-feed-focus.webp"
+    }
+  ],
+  "followup": true
+}

@@ -1,0 +1,15 @@
+{
+  "prompt": "Use case: ui-mockup\nAsset type: full-fidelity desktop web app direction comp, 1440x900 landscape\nPrimary request: Design the first viewport of Bork, a polished dog-themed short-post social app and resume project, as a working boarding-kennel run ledger and shift board. The app must visibly function as a readable social feed, not as a themed illustration.\nScene/backdrop: one continuous powder-coated deep forest-green work board with a broad weatherproof paper feed sheet clipped into it; compact utility rail on the left, generous readable main feed, narrow honest project note at right.\nSubject: Bork dog social feed. Show logo/name Bork, navigation labels Feed, My kennel, Settings; a clear composer labeled “Leave a bork” with authentic short dog posts; warm dog profile portraits; timestamps and profile names. Use truthful demo copy only, no metrics or customer claims.\nStyle/medium: high-end product UI mockup with tactile industrial editorial craft, real semantic web controls, precise spacing, distinctly not Twitter.\nComposition/framing: 1440x900 straight-on browser viewport. The composer is an active run card near the top. Newest borks stack below like ledger entries. One safety-orange rubber-stamp BORK action. Strong scale hierarchy, minimal container nesting.\nLighting/mood: soft daylight on durable working materials, warm and humane rather than clinical.\nColor palette: #14231d deep green, #f3e9d2 stock, #e87534 action orange, #8eaa91 muted green, near-black ink.\nMaterials/textures: subtle powder-coated steel, weatherproof stock, rubber stamps, brass clips; tactile but never photorealistic scenery.\nText (verbatim where legible): “Bork”, “Leave a bork”, “BORK”, “Feed”, “My kennel”, “Settings”, “Public borks”, “Mabel”, “Found the sunny square. Claimed it.”\nConstraints: desktop web interface; familiar posting and reading affordances; dog-first and self-aware; no fake traction; no bone-shaped buttons; no paw-print wallpaper; no gradients; no glassmorphism; no excessive rounded cards; no Twitter blue; no three-column Twitter clone.\nAvoid: poster, photograph of a kennel, marketing landing page, illegible decorative text, dashboard metrics, novelty controls, extra features.",
+  "createdAt": "2026-08-23T15:01:10.464Z",
+  "useCase": "ui-mockup",
+  "generator": "OpenAI built-in image_gen",
+  "sourceFormat": "PNG",
+  "sourceDimensions": {
+    "width": 1586,
+    "height": 992
+  },
+  "outputFormat": "WebP",
+  "width": 1440,
+  "height": 900,
+  "targetedEdit": "Removed the duplicate decorative lower-right BORK stamp; retained the composer action."
+}

@@ -1,102 +1,65 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
+import { LoadingPage } from "~/components/Loading";
+import { PageLayout } from "~/components/PageLayout";
+import { PostView } from "~/components/PostView";
+import { ProfileAvatar } from "~/components/ProfileAvatar";
+import { getAvatarUrl } from "~/lib/profile";
 import { api } from "~/utils/api";
-import { PageLayout } from "~/components/layout";
-import Image from "next/image";
-import { LoadingPage } from "~/components/loading";
-import { PostView } from "../components/postview";
 
-const ProfileFeed = (props: { userID: string }) => {
-  const { data, isLoading } = api.posts.getPostsByUserId.useQuery({
-    userID: props.userID,
-  });
+const ProfileFeed = ({ userId }: { userId: string }) => {
+  const { data: posts, error, isLoading, refetch } = api.posts.getPostsByUserId.useQuery({ userId });
 
-  if (isLoading) return <LoadingPage />;
+  if (isLoading) return <div className="min-h-64"><LoadingPage /></div>;
+  if (error) {
+    return <div className="px-6 py-14 text-center"><h2 className="font-bold">This profile’s borks are unavailable right now.</h2><p className="bork-muted mt-2 text-sm">Try again in a moment.</p><button type="button" className="bork-secondary-btn mt-5" onClick={() => void refetch()}>Try again</button></div>;
+  }
+  if (!posts || posts.length === 0) {
+    return <div className="px-6 py-14 text-center"><h2 className="font-bold">No borks yet.</h2><p className="bork-muted mt-2 text-sm">This profile is keeping things quiet.</p></div>;
+  }
 
-  if (!data || data.length === 0) return <div>User has not posted</div>;
-
-  return (
-    <div className="tw-feed-scroller tw-surface flex max-h-[calc(100vh-320px)] flex-col overflow-y-auto">
-      {data.map((fullPost) => (
-        <PostView {...fullPost} key={fullPost.post.id} />
-      ))}
-    </div>
-  );
+  return <section aria-label="Profile borks">{posts.map((post) => <PostView {...post} key={post.post.id} />)}</section>;
 };
 
 const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
-  const { data, isLoading, error } = api.profile.getUserByUsername.useQuery(
+  const { data: profile, isLoading, error } = api.profile.getUserByUsername.useQuery(
     { username },
-    {
-      retry: false,
-      enabled: username !== "anonymous",
-    },
+    { retry: false },
   );
 
-  if (username === "anonymous") {
-    return <div>Something is borked, page not found.</div>;
+  if (isLoading) return <PageLayout><LoadingPage /></PageLayout>;
+  if (error || !profile) {
+    return <PageLayout><div className="px-6 py-16 text-center"><h1 className="text-xl font-bold">Profile not found.</h1><p className="bork-muted mt-2">That trail has gone cold.</p></div></PageLayout>;
   }
 
-  if (isLoading) {
-    return <LoadingPage />;
-  }
+  const displayUsername = profile.username || username;
+  const profileImageUrl = getAvatarUrl({ profileImageUrl: profile.profileImageUrl, seed: displayUsername });
+  const fullName = [profile.firstName, profile.lastName].filter(Boolean).join(" ");
 
-  if (error || !data) {
-    return <div>Something is borked, page not found.</div>;
-  }
-  
-  const profileImageUrl = data.profileImageUrl || `https://api.dicebear.com/7.x/lorelei/svg?seed=${username}`;
-  const displayUsername = data.username || username;
-  const userId = data.id;
-  
   return (
-    <div>
-      <Head>
-        <title>{displayUsername}</title>
-      </Head>
-      <PageLayout>
-        <div className="relative h-36 bg-gradient-to-r from-[#8ecdf1] via-[#a4d8f4] to-[#d9edf7]">
-          <Image
-            src={profileImageUrl}
-            alt={`${displayUsername}'s profile pic`}
-            width={128}
-            height={128}
-            sizes="(max-height: 128px) 128px, 64px"
-            className="absolute bottom-0 left-0 -mb-[64px] ml-4 rounded-full border-4 tw-divider tw-surface"
-          />
+    <PageLayout>
+      <Head><title>@{displayUsername} · Bork</title></Head>
+      <header className="border-b bork-divider">
+        <div className="h-28 bork-surface-raised" />
+        <div className="px-5 pb-6 md:px-6">
+          <div className="-mt-12 w-fit rounded-full p-1 bork-surface"><ProfileAvatar src={profileImageUrl} username={displayUsername} size={104} priority /></div>
+          <h1 className="mt-4 text-2xl font-extrabold tracking-[-0.025em]">@{displayUsername}</h1>
+          {fullName && <p className="bork-muted mt-1 text-sm">{fullName}</p>}
         </div>
-        <div className="h-[64px]"></div>
-        <div className="tw-heading p-4 text-2xl font-bold">{`@${displayUsername}`}</div>
-        <div className="w-full border-b tw-divider" />
-        <ProfileFeed userID={userId} />
-      </PageLayout>
-    </div>
+      </header>
+      <ProfileFeed userId={profile.id} />
+    </PageLayout>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<{ username: string }> = async (context) => {
+export const getServerSideProps: GetServerSideProps<{ username: string }> = (context) => {
   const slug = context.params?.slug;
+  if (typeof slug !== "string") return Promise.resolve({ notFound: true });
 
-  if (typeof slug !== "string") {
-    return Promise.resolve({
-      notFound: true,
-    });
-  }
-
-  //to match usernames[], remove @
-  const username = slug.replace("@", "");
-
-  if (username.length === 0 || username === "anonymous") {
-    return Promise.resolve({
-      notFound: true,
-    });
-  }
-
-  return Promise.resolve({
-    props: {
-      username,
-    },
-  });
+  const username = slug.replace(/^@/, "");
+  return Promise.resolve(username.length > 0 && username !== "anonymous"
+    ? { props: { username } }
+    : { notFound: true });
 };
 
 export default ProfilePage;

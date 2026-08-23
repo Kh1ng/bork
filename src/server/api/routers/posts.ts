@@ -1,7 +1,12 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { type UserProfile } from "~/server/helpers/filterUserInfo";
-import { env } from "~/env.mjs";
+import {
+  profileFromAuthUser,
+  PROFILE_SELECT,
+  type ProfileRecord,
+  userProfileFromRecord,
+} from "~/lib/profile";
+import { borkContentSchema } from "~/lib/bork";
 import {
   createTRPCRouter,
   privateProcedure,
@@ -18,49 +23,24 @@ type PostRecord = {
   authorID: string;
 };
 
-type ProfileRecord = {
-  userId: string;
-  username: string | null;
-  firstName: string | null;
-  lastName: string | null;
-  imageUrl: string | null;
-};
-
-const getStringMetadata = (
-  metadata: Record<string, unknown> | null | undefined,
-  key: string,
-) => {
-  const value = metadata?.[key];
-  return typeof value === "string" && value.length > 0 ? value : undefined;
-};
-
-const addUserDataToPosts = async (posts: PostRecord[], _ctx: Context) => {
+const addUserDataToPosts = async (posts: PostRecord[], ctx: Context) => {
   const authorIds = [...new Set(posts.map((post) => post.authorID))];
   let profiles: ProfileRecord[] = [];
 
   if (authorIds.length > 0) {
-    const url = new URL(`${env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/Profile`);
-    url.searchParams.append("select", "userId,username,firstName,lastName,imageUrl");
-    
-    // Use OR filter for multiple IDs
-    const orFilters = authorIds.map(id => `userId.eq.${id}`).join(",");
-    url.searchParams.append("or", `(${orFilters})`);
+    const { data: profileRows, error } = await ctx.supabasePublic
+      .from("Profile")
+      .select(PROFILE_SELECT)
+      .in("userId", authorIds);
 
-    const response = await fetch(url.toString(), {
-      headers: {
-        apikey: env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-      },
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
+    if (error) {
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
-        message: `Unable to load profile data: ${errorText}`,
+        message: `Unable to load profile data: ${error.message}`,
       });
     }
 
-    profiles = (await response.json()) as ProfileRecord[];
+    profiles = profileRows ?? [];
   }
 
   return posts.map((post) => {
@@ -71,145 +51,116 @@ const addUserDataToPosts = async (posts: PostRecord[], _ctx: Context) => {
         post,
         author: {
           id: post.authorID,
-          username: "anonymous",
+          username: null,
           firstName: null,
           lastName: null,
           profileImageUrl: null,
-        } as UserProfile,
+        },
       };
     }
 
     return {
       post,
-      author: {
-        id: author.userId,
-        username: author.username || "anonymous",
-        firstName: author.firstName,
-        lastName: author.lastName,
-        profileImageUrl: author.imageUrl,
-      } as UserProfile,
+      author: userProfileFromRecord(author),
     };
   });
 };
 
 export const postsRouter = createTRPCRouter({
   getAll: publicProcedure.query(async ({ ctx }) => {
-    // Use direct fetch to avoid Supabase client JWT signature issues
-    const url = new URL(`${env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/Post`);
-    url.searchParams.append("select", "id,createdAt,content,authorID");
-    url.searchParams.append("order", "createdAt.desc");
-    url.searchParams.append("limit", "100");
+    const { data: posts, error } = await ctx.supabasePublic
+      .from("Post")
+      .select("id, createdAt, content, authorID")
+      .order("createdAt", { ascending: false })
+      .limit(100);
 
-    const response = await fetch(url.toString(), {
-      headers: {
-        apikey: env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-      },
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
+    if (error) {
       throw new TRPCError({
         code: "INTERNAL_SERVER_ERROR",
-        message: `Unable to load posts: ${response.status} ${errorText}`,
+        message: `Unable to load posts: ${error.message}`,
       });
     }
 
-    const data = (await response.json()) as PostRecord[];
-    return addUserDataToPosts(data, ctx);
+    return addUserDataToPosts((posts ?? []), ctx);
   }),
 
   getById: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
-      const url = new URL(`${env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/Post`);
-      url.searchParams.append("select", "id,createdAt,content,authorID");
-      url.searchParams.append("id", `eq.${input.id}`);
+      const { data: post, error } = await ctx.supabasePublic
+        .from("Post")
+        .select("id, createdAt, content, authorID")
+        .eq("id", input.id)
+        .maybeSingle();
 
-      const response = await fetch(url.toString(), {
-        headers: {
-          apikey: env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-        },
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
+      if (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
-          message: `Unable to load post: ${response.status} ${errorText}`,
+          message: `Unable to load post: ${error.message}`,
         });
       }
 
-      const data = (await response.json()) as PostRecord[];
-      if (!data || data.length === 0) {
+      if (!post) {
         throw new TRPCError({ code: "NOT_FOUND" });
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const result = await addUserDataToPosts([data[0]!], ctx);
+      const result = await addUserDataToPosts([post], ctx);
       return result[0];
     }),
 
   getPostsByUserId: publicProcedure
     .input(
       z.object({
-        userID: z.string(),
+        userId: z.string(),
       })
     )
     .query(async ({ ctx, input }) => {
-      const url = new URL(`${env.NEXT_PUBLIC_SUPABASE_URL}/rest/v1/Post`);
-      url.searchParams.append("select", "id,createdAt,content,authorID");
-      url.searchParams.append("authorID", `eq.${input.userID}`);
-      url.searchParams.append("order", "createdAt.desc");
-      url.searchParams.append("limit", "100");
+      const { data: posts, error } = await ctx.supabasePublic
+        .from("Post")
+        .select("id, createdAt, content, authorID")
+        .eq("authorID", input.userId)
+        .order("createdAt", { ascending: false })
+        .limit(100);
 
-      const response = await fetch(url.toString(), {
-        headers: {
-          apikey: env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-        },
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
+      if (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
-          message: `Unable to load user posts: ${response.status} ${errorText}`,
+          message: `Unable to load user posts: ${error.message}`,
         });
       }
 
-      const data = (await response.json()) as PostRecord[];
-      return addUserDataToPosts(data ?? [], ctx);
+      return addUserDataToPosts((posts ?? []), ctx);
     }),
 
   create: privateProcedure
     .input(
       z.object({
-        content: z.string().min(1).max(280), // 280 is the max length of a tweet
+        content: borkContentSchema,
       })
     )
     .mutation(async ({ ctx, input }) => {
-      if (!ctx.userId) {
-        throw new TRPCError({
-          code: "UNAUTHORIZED",
-        });
-      }
-
       const authorID = ctx.userId;
 
       const {
         data: { user },
       } = await ctx.supabase.auth.getUser();
 
-      const userMetadata = user?.user_metadata as Record<string, unknown> | undefined;
+      const userProfile = user
+        ? profileFromAuthUser(user)
+        : {
+            id: authorID,
+            username: null,
+            firstName: null,
+            lastName: null,
+            profileImageUrl: null,
+          };
 
-      const profilePayload = {
-        userId: authorID,
-        username: getStringMetadata(userMetadata, "username") ?? null,
-        firstName: getStringMetadata(userMetadata, "firstName") ?? null,
-        lastName: getStringMetadata(userMetadata, "lastName") ?? null,
-        imageUrl:
-          getStringMetadata(userMetadata, "avatar_url") ??
-          getStringMetadata(userMetadata, "picture") ??
-          null,
+      const profilePayload: ProfileRecord = {
+        userId: userProfile.id,
+        username: userProfile.username,
+        firstName: userProfile.firstName,
+        lastName: userProfile.lastName,
+        imageUrl: userProfile.profileImageUrl,
       };
 
       const { error: profileError } = await ctx.supabaseAdmin

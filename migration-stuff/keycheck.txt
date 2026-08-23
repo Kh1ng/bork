@@ -1,4 +1,0 @@
-anon_code=200
-service_code=200
-anon_body=[{"id":"40e7a396-fd6f-4e3a-bc4b-1ee49ce69cd8"}]
-service_body=[{"id":"40e7a396-fd6f-4e3a-bc4b-1ee49ce69cd8"}]
