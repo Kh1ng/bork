@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   color-scheme: dark;
@@ -32,49 +30,51 @@ html[data-theme="light"] {
   --bork-focus: #086fc8;
 }
 
-* {
-  box-sizing: border-box;
-}
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
 
-html {
-  min-width: 320px;
-  background: var(--bork-canvas);
-}
+  html {
+    min-width: 320px;
+    background: var(--bork-canvas);
+  }
 
-body {
-  min-height: 100vh;
-  margin: 0;
-  color: var(--bork-text);
-  background: var(--bork-canvas);
-  font-family: ui-rounded, "Avenir Next", Avenir, "Segoe UI", sans-serif;
-  font-feature-settings: "kern", "liga";
-  text-rendering: optimizeLegibility;
-  overscroll-behavior-y: none;
-}
+  body {
+    min-height: 100vh;
+    margin: 0;
+    color: var(--bork-text);
+    background: var(--bork-canvas);
+    font-family: ui-rounded, "Avenir Next", Avenir, "Segoe UI", sans-serif;
+    font-feature-settings: "kern", "liga";
+    text-rendering: optimizeLegibility;
+    overscroll-behavior-y: none;
+  }
 
-button,
-input,
-textarea {
-  font: inherit;
-}
+  button,
+  input,
+  textarea {
+    font: inherit;
+  }
 
-textarea {
-  caret-color: var(--bork-accent);
-}
+  textarea {
+    caret-color: var(--bork-accent);
+  }
 
-a {
-  color: inherit;
-  text-underline-offset: 0.2em;
-}
+  a {
+    color: inherit;
+    text-underline-offset: 0.2em;
+  }
 
-::selection {
-  color: #ffffff;
-  background: var(--bork-accent);
-}
+  ::selection {
+    color: #ffffff;
+    background: var(--bork-accent);
+  }
 
-:focus-visible {
-  outline: 2px solid var(--bork-focus);
-  outline-offset: 3px;
+  :focus-visible {
+    outline: 2px solid var(--bork-focus);
+    outline-offset: 3px;
+  }
 }
 
 @layer components {
