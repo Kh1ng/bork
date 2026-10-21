@@ -61,5 +61,10 @@
   },
   "ct3aMetadata": {
     "initVersion": "7.10.2"
+  },
+  "overrides": {
+    "@istanbuljs/load-nyc-config": {
+      "js-yaml": "^4.1.0"
+    }
   }
 }
